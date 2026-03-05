@@ -98,7 +98,21 @@ stateDiagram-v2
 |----------|---------|-----------|
 | **Admin** | Người quản lý toàn bộ hệ thống bảng giá | - Tạo, cập nhật bảng giá Draft<br>- Nhập giá cho mã giá độc lập<br>- Activate bảng giá<br>- Xem danh sách và chi tiết bảng giá<br>- Sao chép bảng giá |
 | **Nhân viên** | Người xem và sử dụng bảng giá | - Xem danh sách bảng giá Active<br>- Xem chi tiết bảng giá<br>- Sử dụng bảng giá trong giao dịch |
+### 3.1. Ma trận Phân quyền Actor
 
+| Use Case | Admin | Nhân viên | Ghi chú |
+|----------|:-----:|:---------:|---------||
+| **UC-BANGGIA-01: Tạo bảng giá** | ✅ | ❌ | Chỉ Admin có quyền tạo bảng giá mới |
+| **UC-BANGGIA-02: Cập nhật bảng giá** | ✅ | ❌ | Chỉ Admin có quyền nhập/cập nhật giá |
+| **UC-BANGGIA-03: Xem danh sách bảng giá** | ✅ | ✅* | *Nhân viên chỉ xem được bảng giá Active |
+| **UC-BANGGIA-04: Xem chi tiết bảng giá** | ✅ | ✅ | Cả hai có quyền xem chi tiết |
+| **UC-BANGGIA-05: Activate bảng giá** | ✅ | ❌ | Chỉ Admin có quyền kích hoạt bảng giá |
+| **UC-BANGGIA-06: Sao chép bảng giá** | ✅ | ❌ | Chỉ Admin có quyền sao chép |
+
+**Chú thích:**
+- ✅ = Có quyền thực hiện
+- ❌ = Không có quyền thực hiện
+- ✅* = Có quyền với giới hạn (xem ghi chú)
 ---
 
 ## 4. DANH SÁCH USE CASE
@@ -109,12 +123,12 @@ stateDiagram-v2
 flowchart TB
     title["QUẢN LÝ BẢNG GIÁ"]
     
-    UC01["UC01: Tạo bảng giá"]
-    UC02["UC02: Cập nhật bảng giá"]
-    UC03["UC03: Xem danh sách bảng giá"]
-    UC04["UC04: Xem chi tiết bảng giá"]
-    UC05["UC05: Activate bảng giá"]
-    UC06["UC06: Sao chép bảng giá"]
+    UC01["UC-BANGGIA-01: Tạo bảng giá"]
+    UC02["UC-BANGGIA-02: Cập nhật bảng giá"]
+    UC03["UC-BANGGIA-03: Xem danh sách bảng giá"]
+    UC04["UC-BANGGIA-04: Xem chi tiết bảng giá"]
+    UC05["UC-BANGGIA-05: Activate bảng giá"]
+    UC06["UC-BANGGIA-06: Sao chép bảng giá"]
     
     title -.-> UC01
     title -.-> UC02
@@ -137,16 +151,16 @@ flowchart TB
 ## 5. CẤU TRÚC TÀI LIỆU
 
 ### Use Cases (Tính năng nghiệp vụ)
-- **UC01: Tạo bảng giá** - Tạo bảng giá mới ở trạng thái Draft
-- **UC02: Cập nhật bảng giá** - Nhập/cập nhật giá cho các mã giá (chỉ Draft)
-- **UC03: Xem danh sách bảng giá** - Lọc, tìm kiếm và hiển thị danh sách bảng giá
-- **UC04: Xem chi tiết bảng giá** - Xem thông tin đầy đủ của một bảng giá
-- **UC05: Activate bảng giá** - Kích hoạt bảng giá để áp dụng (tự động chuyển bảng cũ → Inactive)
-- **UC06: Sao chép bảng giá** - Tạo bảng giá mới từ bảng giá có sẵn
+- **UC-BANGGIA-01: Tạo bảng giá** - Tạo bảng giá mới ở trạng thái Draft
+- **UC-BANGGIA-02: Cập nhật bảng giá** - Nhập/cập nhật giá cho các mã giá (chỉ Draft)
+- **UC-BANGGIA-03: Xem danh sách bảng giá** - Lọc, tìm kiếm và hiển thị danh sách bảng giá
+- **UC-BANGGIA-04: Xem chi tiết bảng giá** - Xem thông tin đầy đủ của một bảng giá
+- **UC-BANGGIA-05: Activate bảng giá** - Kích hoạt bảng giá để áp dụng (tự động chuyển bảng cũ → Inactive)
+- **UC-BANGGIA-06: Sao chép bảng giá** - Tạo bảng giá mới từ bảng giá có sẵn
 
 ---
 
-## 6. HIGHLIGHTS
+## 6. BUSINESS RULE (Quy tắc nghiệp vụ)
 
 ### ⭐ Tính năng nổi bật
 - ✅ **Tính giá tự động**: Mã giá kế thừa được tính tự động theo công thức từ mã giá gốc

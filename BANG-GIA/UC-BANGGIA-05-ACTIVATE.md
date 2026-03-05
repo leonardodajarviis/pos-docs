@@ -1,9 +1,9 @@
-# Use Case UC-5: Activate Bảng giá
+# Use Case UC-BANGGIA-05: Activate Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-5** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-05** |
+|-----------------|------------------||
 | **Use Case Name** | Activate Bảng giá |
 | **Description** | Use Case "Activate Bảng giá" cho phép Admin kích hoạt bảng giá từ trạng thái Draft sang Active để áp dụng trong hệ thống. Hệ thống tự động chuyển bảng giá Active cũ (cùng loại) sang Inactive và snapshot toàn bộ giá tại thời điểm activate. |
 | **Actor(s)** | Admin |
@@ -166,7 +166,7 @@ Bạn có chắc chắn muốn Activate bảng giá này?
 
 4c1. Hệ thống hủy thao tác
 
-4c2. Admin quay lại UC02 để nhập giá
+4c2. Admin quay lại UC-BANGGIA-02 để nhập giá
 
 4c3. Use case kết thúc
 
@@ -174,13 +174,13 @@ Bạn có chắc chắn muốn Activate bảng giá này?
 
 ## Business Rules
 
-### BR-UC05-001: Chỉ Admin được activate
+### BR-BANGGIA-033: Chỉ Admin được activate
 
 - Chỉ Admin mới có quyền activate bảng giá
 - Nhân viên không có quyền này
 - Lý do: Activate bảng giá ảnh hưởng toàn hệ thống (giá mua/bán)
 
-### BR-UC05-002: Chỉ activate bảng giá Draft
+### BR-BANGGIA-034: Chỉ activate bảng giá Draft
 
 - Chỉ có thể activate bảng giá đang ở trạng thái **Draft**
 - Bảng giá **Active**: Đã được activate, không cần activate lại
@@ -197,10 +197,10 @@ Bảng giá Active:
 
 Bảng giá Inactive:
   ❌ Không thể Activate lại
-  → Phải tạo bảng giá mới hoặc Sao chép (UC06)
+  → Phải tạo bảng giá mới hoặc Sao chép (UC-BANGGIA-06)
 ```
 
-### BR-UC05-003: Kiểm tra giá đầy đủ
+### BR-BANGGIA-035: Kiểm tra giá đầy đủ
 
 Hệ thống kiểm tra giá trước khi activate:
 
@@ -222,7 +222,7 @@ Bảng giá có 7 mã giá:
   - 7/7 có giá → ✅ Cho phép (không cảnh báo)
 ```
 
-### BR-UC05-004: Auto-transition bảng giá cũ
+### BR-BANGGIA-036: Auto-transition bảng giá cũ
 
 Khi activate bảng giá mới:
 - Hệ thống **tự động** tìm bảng giá Active cũ **cùng loại** (priceListType)
@@ -248,7 +248,7 @@ Sau activate:
 → Chỉ 1 bảng GOLD Active tại một thời điểm
 ```
 
-### BR-UC05-005: Snapshot mechanism
+### BR-BANGGIA-037: Snapshot mechanism
 
 Tại thời điểm activate, hệ thống **snapshot** toàn bộ giá:
 - Lưu giá của **tất cả mã giá** tại thời điểm activate
@@ -272,7 +272,7 @@ Tại thời điểm activate, hệ thống **snapshot** toàn bộ giá:
   QTVRTL: 85M × 1.05 = 89.25M (hệ số mới)
 ```
 
-### BR-UC05-006: Một loại - Một Active
+### BR-BANGGIA-038: Một loại - Một Active
 
 - Mỗi loại bảng giá (priceListType) chỉ có **duy nhất 1 bảng Active**
 - Không thể có 2 bảng GOLD Active cùng lúc
@@ -298,7 +298,7 @@ Loại SILVER:
 → Không ảnh hưởng
 ```
 
-### BR-UC05-007: Ghi nhận audit log
+### BR-BANGGIA-039: Ghi nhận audit log
 
 Mỗi lần activate, hệ thống ghi nhận đầy đủ:
 
@@ -317,7 +317,7 @@ Mỗi lần activate, hệ thống ghi nhận đầy đủ:
 - Trạng thái trước: Active
 - Trạng thái sau: Inactive
 
-### BR-UC05-008: Không ảnh hưởng bảng giá khác loại
+### BR-BANGGIA-040: Không ảnh hưởng bảng giá khác loại
 
 Việc activate bảng giá **chỉ ảnh hưởng** bảng giá **cùng loại**:
 - Activate bảng GOLD → Chỉ ảnh hưởng bảng GOLD Active cũ
@@ -343,17 +343,17 @@ Activate GOLD-B:
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC05: Activate Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-05: Activate Bảng giá
 
 ```mermaid
 graph LR
     Actor["👤 Admin"]
     
-    UC05["UC05: Activate Bảng giá<br/>(Draft → Active + Auto Inactive cũ)"]
+    UC-BANGGIA-05["UC-BANGGIA-05: Activate Bảng giá<br/>(Draft → Active + Auto Inactive cũ)"]
     
-    Actor -->|Thực hiện| UC05
+    Actor -->|Thực hiện| UC-BANGGIA-05
     
-    style UC05 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    style UC-BANGGIA-05 fill:#bbdefb,stroke:#1976d2,stroke-width:2px
     style Actor fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
@@ -598,214 +598,3 @@ classDiagram
     note for TransitionService "Đảm bảo 1 Active<br/>per type"
     note for AuditService "Ghi 2 logs:<br/>ACTIVATE + AUTO_DEACTIVATE"
 ```
-
----
-
-## Business Scenario
-
-### Scenario 1: Activate bảng giá đủ giá thành công
-
-```
-Bảng giá: "Bảng giá vàng - 04/03/2026" (Draft)
-Loại: GOLD
-Tổng mã giá: 7
-Đã nhập đủ giá: 7 (100%)
-
-Trước activate:
-  - "Bảng giá vàng - 03/03/2026" (GOLD): Active
-  - "Bảng giá vàng - 04/03/2026" (GOLD): Draft ← Chuẩn bị activate
-
-Admin thực hiện:
-1. Chọn "Activate" từ danh sách hoặc chi tiết
-2. Xác nhận activate
-
-Hệ thống xử lý:
-1. Kiểm tra: Draft ✅, Đủ giá ✅
-2. Tìm bảng Active cũ: "Bảng giá vàng - 03/03/2026"
-3. Snapshot 7 mã giá của bảng mới:
-   - NHANVRTL: 86M / 88M (snapshot)
-   - QTVRTL: 86M / 88M (snapshot, auto-calc)
-   - MVRTL: 86M / 88M (snapshot, auto-calc)
-   - MNVT9999: 85.48M / 87.47M (snapshot, auto-calc)
-   - MNVT999: 85.39M / 87.38M (snapshot, auto-calc)
-   - BANVI: 86M / 88M (snapshot, auto-calc)
-   - VHT99.99: 86M / 88M (snapshot, auto-calc)
-4. Activate bảng mới:
-   - Status: Draft → Active
-   - activatedAt: 04/03/2026 16:00
-   - activatedBy: Admin A
-5. Auto-deactivate bảng cũ:
-   - "Bảng giá vàng - 03/03/2026": Active → Inactive
-   - deactivatedAt: 04/03/2026 16:00
-   - deactivatedBy: AUTO (triggered by new activation)
-
-Audit Log:
-  - 16:00:00 - ACTIVATE - "Bảng giá vàng - 04/03/2026"
-  - 16:00:01 - AUTO_DEACTIVATE - "Bảng giá vàng - 03/03/2026"
-
-Kết quả:
-✅ Activate thành công
-  - Bảng mới: "Bảng giá vàng - 04/03/2026" → Active
-  - Snapshot: 7 mã giá
-  - Bảng cũ: "Bảng giá vàng - 03/03/2026" → Inactive
-
-Sau activate:
-  - Loại GOLD chỉ có 1 bảng Active: "Bảng giá vàng - 04/03/2026"
-  - Giá đã được snapshot, không thay đổi dù hệ số mã giá thay đổi sau này
-```
-
-### Scenario 2: Activate với giá thiếu (có xác nhận)
-
-```
-Bảng giá: "Bảng giá vàng - 05/03/2026" (Draft)
-Loại: GOLD
-Tổng mã giá: 7
-Đã nhập đủ giá: 4 (57%)
-Còn thiếu giá: 3 (43%)
-
-Admin thực hiện:
-1. Chọn "Activate"
-
-Hệ thống kiểm tra:
-→ Phát hiện 3 mã giá thiếu giá
-
-Hiển thị cảnh báo:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ CẢNH BÁO: Bảng giá còn thiếu giá
-
-Tổng số mã giá: 7
-Đã nhập đủ giá: 4 (57%)
-Còn thiếu giá: 3 (43%)
-
-Chi tiết mã giá thiếu:
-  1. NHANVRTL - Thiếu giá bán
-     Giá mua: 85M ✅ | Giá bán: NULL ⚠️
-  
-  2. MVRTL - Thiếu cả 2 giá
-     Giá mua: NULL ⚠️ | Giá bán: NULL ⚠️
-  
-  3. BANVI - Thiếu giá mua
-     Giá mua: NULL ⚠️ | Giá bán: 88M ✅
-
-Bạn có chắc chắn muốn Activate bảng giá này?
-[Hủy] [Tiếp tục Activate]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Admin chọn: "Tiếp tục Activate"
-
-Hệ thống xử lý:
-1. Snapshot tất cả giá (kể cả NULL)
-2. Activate bảng mới: Draft → Active
-3. Auto-deactivate bảng cũ: Active → Inactive
-
-Kết quả:
-✅ Activate thành công (với cảnh báo)
-⚠️ Lưu ý: 3 mã giá thiếu giá vẫn ở trạng thái thiếu
-
-→ Bảng giá Active nhưng một số mã giá chưa có đủ giá
-→ Có thể cập nhật sau bằng cách tạo bảng giá mới
-```
-
-### Scenario 3: Không thể activate (tất cả NULL)
-
-```
-Bảng giá: "Bảng giá bạc - 05/03/2026" (Draft)
-Loại: SILVER
-Tổng mã giá: 5
-Đã nhập đủ giá: 0 (0%)
-
-Admin thực hiện:
-1. Chọn "Activate"
-
-Hệ thống kiểm tra:
-→ Tất cả 5 mã giá đều chưa có giá (NULL/NULL)
-
-Kết quả:
-❌ Lỗi: "Không thể activate. Tất cả mã giá đều chưa có giá. 
-         Vui lòng nhập giá trước khi activate."
-
-Hướng dẫn:
-→ Admin cần:
-  1. Quay lại UC02: Cập nhật giá
-  2. Nhập giá cho ít nhất 1 mã giá
-  3. Sau đó mới có thể Activate
-```
-
-### Scenario 4: Admin hủy activate khi thấy cảnh báo thiếu giá
-
-```
-Bảng giá: "Bảng giá vàng - 06/03/2026" (Draft)
-Thiếu giá: 2/7 mã giá
-
-Admin thực hiện:
-1. Chọn "Activate"
-2. Hệ thống hiển thị cảnh báo thiếu giá
-3. Admin xem lại và quyết định: "Hủy"
-
-Kết quả:
-❌ Hủy activate
-
-Admin tiếp tục:
-→ Chuyển sang UC02: Cập nhật giá
-→ Nhập đủ giá cho 2 mã giá còn thiếu
-→ Quay lại Activate (lần này không cảnh báo)
-```
-
-### Scenario 5: Activate bảng đầu tiên của loại mới
-
-```
-Bảng giá: "Bảng giá bạc - 05/03/2026" (Draft)
-Loại: SILVER (lần đầu tạo loại này)
-Tổng mã giá: 5
-Đã nhập đủ giá: 5 (100%)
-
-Trước activate:
-  - Không có bảng SILVER Active nào
-
-Admin thực hiện:
-1. Chọn "Activate"
-2. Xác nhận
-
-Hệ thống xử lý:
-1. Kiểm tra: Draft ✅, Đủ giá ✅
-2. Tìm bảng Active cũ loại SILVER: Không tìm thấy
-3. Snapshot 5 mã giá
-4. Activate bảng mới: Draft → Active
-5. Không có bảng cũ để deactivate
-
-Kết quả:
-✅ Activate thành công
-  - Bảng mới: "Bảng giá bạc - 05/03/2026" → Active
-  - Snapshot: 5 mã giá
-  - Không có bảng cũ
-
-Sau activate:
-  - Loại SILVER có 1 bảng Active (bảng đầu tiên)
-```
-
-### Scenario 6: Snapshot ngăn ảnh hưởng thay đổi hệ số
-
-```
-04/03/2026 16:00 - Activate "Bảng giá vàng - 04/03"
-Snapshot:
-  NHANVRTL: 86M / 88M
-  QTVRTL (Hệ số 1): 86M / 88M
-
-05/03/2026 10:00 - Admin cập nhật hệ số QTVRTL:
-  Hệ số mua: 1 → 1.05
-  Hệ số bán: 1 → 1.05
-
-Kiểm tra bảng giá 04/03:
-→ QTVRTL vẫn giữ nguyên: 86M / 88M ✅
-→ Không bị ảnh hưởng bởi thay đổi hệ số (đã snapshot)
-
-Tạo bảng giá mới 06/03:
-→ QTVRTL tính lại: 86M × 1.05 = 90.3M
-→ Bảng mới sử dụng hệ số mới
-
-Kết luận:
-✅ Snapshot đảm bảo bảng Active không thay đổi
-✅ Chỉ bảng mới mới sử dụng hệ số mới
-```
-
----

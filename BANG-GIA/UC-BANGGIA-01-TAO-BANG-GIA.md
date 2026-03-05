@@ -1,9 +1,9 @@
-# Use Case UC-1: Tạo Bảng giá
+# Use Case UC-BANGGIA-01: Tạo Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-1** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-01** |
+|-----------------|------------------||
 | **Use Case Name** | Tạo Bảng giá |
 | **Description** | Use Case "Tạo Bảng giá" cho phép Admin tạo mới bảng giá nguyên liệu ở trạng thái Draft để chuẩn bị nhập giá cho các mã giá. |
 | **Actor(s)** | Admin |
@@ -118,7 +118,7 @@
    - Hiển thị thông tin chi tiết của mỗi mã giá: Mã gốc, Hệ số mua/bán, Thương hiệu, Loại vàng, Hàm lượng
    - Khởi tạo giá mua vào = NULL, giá bán ra = NULL cho tất cả mã giá
 6. Hệ thống trả về bảng giá Draft với danh sách mã giá đầy đủ thông tin
-7. Admin có thể nhập giá ngay hoặc lưu để nhập sau (UC02)
+7. Admin có thể nhập giá ngay hoặc lưu để nhập sau (UC-BANGGIA-02)
 
 Use case kết thúc.
 
@@ -168,19 +168,19 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC01-001: Trạng thái khởi tạo
+### BR-BANGGIA-001: Trạng thái khởi tạo
 
 - Bảng giá mới luôn được tạo với status = **Draft**
 - Mục đích: Cho phép Admin nhập giá trước khi Active
 - Không thể tạo bảng giá với status = Active ngay từ đầu
 
-### BR-UC01-002: Tên bảng giá duy nhất
+### BR-BANGGIA-002: Tên bảng giá duy nhất
 
 - Tên bảng giá phải là duy nhất trong toàn hệ thống
 - Không phân biệt hoa thường khi kiểm tra trùng lặp
 - Mục đích: Dễ dàng nhận biết và quản lý bảng giá
 
-### BR-UC01-003: Ngày và Giờ áp dụng
+### BR-BANGGIA-003: Ngày và Giờ áp dụng
 
 - Ngày bảng giá phải >= ngày hiện tại
 - Giờ bảng giá được nhập riêng (HH:mm:ss)
@@ -202,11 +202,11 @@ Giờ bảng giá:
   - 15:46:10 (buổi chiều)
 ```
 
-### BR-UC01-003A: Tỷ giá USD
+### BR-BANGGIA-004: Tỷ giá USD
 
 - Tỷ giá USD là bắt buộc và phải > 0
 - Được sử dụng trong tính toán giá (nếu có)
-- Có thể cập nhật sau trong UC02
+- Có thể cập nhật sau trong UC-BANGGIA-02
 
 **Ví dụ:**
 ```
@@ -219,14 +219,14 @@ Tỷ giá USD không hợp lệ:
   - -1000 ❌
 ```
 
-### BR-UC01-003B: Phạm vi áp dụng
+### BR-BANGGIA-005: Phạm vi áp dụng
 
 - Bảng giá có thể áp dụng cho:
   - **Toàn bộ hệ thống**: Áp dụng cho tất cả chi nhánh
   - **Chi nhánh cụ thể**: Chỉ áp dụng cho chi nhánh được chọn
 - Một loại bảng giá chỉ có 1 bảng Active cho mỗi phạm vi tại một thời điểm
 
-### BR-UC01-003C: Mã bảng giá tự động
+### BR-BANGGIA-006: Mã bảng giá tự động
 
 - Nếu Admin không nhập mã bảng giá → Hệ thống tự động sinh
 - Quy tắc sinh mã (ví dụ): `PL-YYYYMMDD-XXX`
@@ -235,7 +235,7 @@ Tỷ giá USD không hợp lệ:
   - XXX: Số thứ tự trong ngày
 - Nếu Admin nhập mã → Kiểm tra duy nhất
 
-### BR-UC01-004: Tự động load danh sách mã giá với thông tin chi tiết
+### BR-BANGGIA-007: Tự động load danh sách mã giá với thông tin chi tiết
 
 Khi tạo bảng giá, hệ thống tự động:
 - Lấy tất cả **mã giá Active** tương ứng với loại bảng giá
@@ -276,13 +276,13 @@ Entry 2: QTVRTL
 ... và 5 entry khác
 ```
 
-### BR-UC01-005: Phân loại theo loại bảng giá
+### BR-BANGGIA-008: Phân loại theo loại bảng giá
 
 - Mỗi bảng giá thuộc một **loại cụ thể** (Vàng ta, Vàng tây, Bạc, v.v.)
 - Loại bảng giá quyết định mã giá nào được đưa vào bảng
 - Không thể thay đổi loại bảng giá sau khi tạo
 
-### BR-UC01-006: Liên kết với Mã giá
+### BR-BANGGIA-009: Liên kết với Mã giá
 
 - Bảng giá **phụ thuộc** vào module Quản lý Mã giá
 - Chỉ mã giá **Active** mới được đưa vào bảng giá mới
@@ -292,17 +292,17 @@ Entry 2: QTVRTL
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC01: Tạo Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-01: Tạo Bảng giá
 
 ```mermaid
 graph LR
     Actor["👤 Admin"]
     
-    UC01["UC01: Tạo Bảng giá<br/>(Draft)"]
+    UC-BANGGIA-01["UC-BANGGIA-01: Tạo Bảng giá<br/>(Draft)"]
     
-    Actor -->|Thực hiện| UC01
+    Actor -->|Thực hiện| UC-BANGGIA-01
     
-    style UC01 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style UC-BANGGIA-01 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style Actor fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
@@ -479,97 +479,3 @@ classDiagram
     note for PriceListEntry "Khởi tạo: giá = NULL"
     note for PriceCodeService "Chỉ lấy mã giá Active"
 ```
-
----
-
-## Business Scenario
-
-### Scenario 1: Tạo bảng giá vàng thành công
-
-```
-Thời điểm: 04/03/2026 15:46
-
-Admin thực hiện:
-1. Yêu cầu tạo bảng giá
-2. Nhập thông tin:
-   - Mã bảng giá: (để trống - tự sinh)
-   - Tên: "Nhập tên bảng giá vàng"
-   - Loại: GOLD
-   - Ngày: 04/03/2026
-   - Giờ: 15:46:10
-   - Phạm vi: Toàn bộ hệ thống
-   - Tỷ giá USD: 26,000
-   - Trạng thái: false (chưa kích hoạt)
-
-Hệ thống có 7 mã giá Active loại "GOLD":
-  - NHANVRTL: Nhẫn Vàng rồng (24k)
-  - QTVRTL: Quỳ tống Vàng Rồng (24k)
-  - MVRTL: Miếng Vàng Rồng (24k)
-  - MNVT9999: Vàng trang sức Bảo Tín (24k)
-  - MNVT999: Vàng trang sức 999 (24k)
-  - BANVI: Vàng bản vỉ (24k)
-  - VHT99.99: Vàng hệ thống 99.99% (24k)
-
-Kết quả:
-✅ Tạo thành công bảng giá Draft
-  - Mã: PL-20260304-001 (tự sinh)
-  - Status: Draft
-  - Có 7 entry với thông tin chi tiết:
-    
-    Entry 1 - NHANVRTL:
-      Mã gốc: NHANVRTL, Hệ số: 1/1
-      Thương hiệu: Vàng rồng Thăng Long
-      Loại: Nhẫn Vàng rồng, Hàm lượng: 24k
-      Giá mua: NULL, Giá bán: NULL
-    
-    Entry 2 - QTVRTL (kế thừa NHANVRTL):
-      Mã gốc: NHANVRTL, Hệ số: 1/1
-      Thương hiệu: Vàng rồng Thăng Long
-      Loại: Quỳ tống Vàng Rồng, Hàm lượng: 24k
-      Giá mua: NULL, Giá bán: NULL
-      
-    ... và 5 entry khác
-    
-→ Admin có thể:
-  - Nhập giá ngay tại màn hình này
-  - Hoặc lưu Draft và nhập sau (UC02)
-```
-
-### Scenario 2: Không thể tạo vì chưa có mã giá
-
-```
-Admin thực hiện:
-1. Yêu cầu tạo bảng giá loại "SILVER"
-2. Nhập thông tin đầy đủ
-
-Hệ thống kiểm tra:
-  - Không có mã giá Active nào cho loại "SILVER"
-
-Kết quả:
-❌ Lỗi: "Không có mã giá Active nào cho loại 'SILVER'. 
-         Vui lòng tạo mã giá trước khi tạo bảng giá."
-
-Giải pháp:
-→ Admin cần chuyển sang module Quản lý Mã giá
-→ Tạo mã giá Active cho loại "SILVER"
-→ Sau đó mới quay lại tạo bảng giá
-```
-
-### Scenario 3: Tạo bảng giá và nhập giá ngay
-
-```
-Admin thực hiện:
-1. Tạo bảng giá GOLD với thông tin đầy đủ
-2. Hệ thống load 7 mã giá với thông tin chi tiết
-3. Admin nhập giá ngay cho entry đầu tiên (NHANVRTL):
-   - Giá mua vào: 1 (giá cơ sở)
-   - Giá bán ra: 1 (giá cơ sở)
-4. Các entry kế thừa từ NHANVRTL sẽ tự động tính giá (UC02)
-
-Kết quả:
-✅ Bảng giá Draft có 1/7 mã giá đã nhập giá
-→ Admin có thể tiếp tục nhập giá cho các mã giá còn lại
-→ Hoặc lưu Draft để nhập sau
-```
-
----

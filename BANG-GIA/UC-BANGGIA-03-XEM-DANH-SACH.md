@@ -1,9 +1,9 @@
-# Use Case UC-3: Xem danh sách Bảng giá
+# Use Case UC-BANGGIA-03: Xem danh sách Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-3** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-03** |
+|-----------------|------------------||
 | **Use Case Name** | Xem danh sách Bảng giá |
 | **Description** | Use Case "Xem danh sách Bảng giá" cho phép Admin và Nhân viên xem danh sách các bảng giá trong hệ thống với khả năng lọc, tìm kiếm và phân trang. |
 | **Actor(s)** | Admin, Nhân viên |
@@ -107,10 +107,10 @@
    - Hệ thống trả về danh sách bảng giá phù hợp
    - Cập nhật thông tin phân trang
 5. User có thể chọn các thao tác trên từng bảng giá:
-   - **Xem chi tiết** → Chuyển sang UC04
-   - **Cập nhật** → Chuyển sang UC02 (chỉ Draft, chỉ Admin)
-   - **Activate** → Chuyển sang UC05 (chỉ Draft, chỉ Admin)
-   - **Sao chép** → Chuyển sang UC06 (chỉ Admin)
+   - **Xem chi tiết** → Chuyển sang UC-BANGGIA-04
+   - **Cập nhật** → Chuyển sang UC-BANGGIA-02 (chỉ Draft, chỉ Admin)
+   - **Activate** → Chuyển sang UC-BANGGIA-05 (chỉ Draft, chỉ Admin)
+   - **Sao chép** → Chuyển sang UC-BANGGIA-06 (chỉ Admin)
 
 Use case tiếp tục (không kết thúc cho đến khi User kết thúc phiên làm việc).
 
@@ -166,7 +166,7 @@ Use case quay lại bước 3
 
 ## Business Rules
 
-### BR-UC03-001: Phân quyền xem danh sách
+### BR-BANGGIA-016: Phân quyền xem danh sách
 
 **Admin:**
 - Xem được tất cả bảng giá (Draft, Active và Inactive)
@@ -194,7 +194,7 @@ Nhân viên:
   ❌ Không sao chép
 ```
 
-### BR-UC03-002: Mặc định
+### BR-BANGGIA-017: Mặc định
 
 Khi lần đầu thực hiện:
 - **Admin**: Trả về tất cả bảng giá (Draft + Active + Inactive)
@@ -216,7 +216,7 @@ Nhân viên lần đầu truy cập:
   → Trang 1, 20 bản ghi
 ```
 
-### BR-UC03-003: Tìm kiếm
+### BR-BANGGIA-018: Tìm kiếm
 
 Tìm kiếm theo từ khóa (case-insensitive) trong các trường:
 - Mã bảng giá (`priceListCode`)
@@ -237,7 +237,7 @@ Từ khóa: "PL-20260304"
   - Mã: "PL-20260304-002"
 ```
 
-### BR-UC03-004: Lọc kết hợp
+### BR-BANGGIA-019: Lọc kết hợp
 
 User có thể lọc đồng thời nhiều điều kiện:
 - Trạng thái = Active
@@ -258,7 +258,7 @@ Filter:
 → Kết quả: Chỉ các bảng giá GOLD, Active, có ngày áp dụng từ 01/03 đến 31/03
 ```
 
-### BR-UC03-005: Phân trang
+### BR-BANGGIA-020: Phân trang
 
 - Mặc định: 20 bản ghi/trang
 - Các lựa chọn: 10, 20, 50, 100
@@ -278,7 +278,7 @@ User thay đổi PageSize từ 20 → 50:
 → Hiển thị 47 bản ghi (tất cả trong 1 trang)
 ```
 
-### BR-UC03-006: Sắp xếp
+### BR-BANGGIA-021: Sắp xếp
 
 **Các trường có thể sắp xếp:**
 - Ngày áp dụng (effectiveDate): Mới nhất hoặc Cũ nhất
@@ -300,10 +300,10 @@ Sắp xếp theo createdAt ASC:
   3. Bảng giá tạo ngày 03/03/2026
 ```
 
-### BR-UC03-007: Lưu trạng thái filter
+### BR-BANGGIA-022: Lưu trạng thái filter
 
 Hệ thống lưu trạng thái filter/search trong session của user:
-- Khi User chuyển sang UC04 (Xem chi tiết) rồi quay lại → Giữ nguyên filter
+- Khi User chuyển sang UC-BANGGIA-04 (Xem chi tiết) rồi quay lại → Giữ nguyên filter
 - Khi User kết thúc phiên làm việc → Xóa filter (reset về mặc định)
 
 Mục đích: User không phải lọc lại nhiều lần
@@ -322,7 +322,7 @@ User thoát → Đăng nhập lại
 → Filter reset về mặc định
 ```
 
-### BR-UC03-008: Hiển thị tỷ lệ hoàn thành
+### BR-BANGGIA-023: Hiển thị tỷ lệ hoàn thành
 
 Mỗi bảng giá hiển thị:
 - **priceCodeCount**: Tổng số mã giá trong bảng
@@ -343,7 +343,7 @@ Màu sắc:
   - 0-49%: Đỏ (mới bắt đầu)
 ```
 
-### BR-UC03-009: Lọc theo khoảng thời gian
+### BR-BANGGIA-024: Lọc theo khoảng thời gian
 
 - Cho phép lọc bảng giá theo khoảng ngày áp dụng
 - Có thể lọc chỉ `fromDate` (từ ngày X đến hiện tại)
@@ -366,19 +366,19 @@ fromDate = 01/03/2026, toDate = 31/03/2026:
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC03: Xem danh sách Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-03: Xem danh sách Bảng giá
 
 ```mermaid
 graph LR
     Admin["👤 Admin"]
     Staff["👤 Nhân viên"]
     
-    UC03["UC03: Xem danh sách Bảng giá"]
+    UC-BANGGIA-03["UC-BANGGIA-03: Xem danh sách Bảng giá"]
     
-    Admin -->|Xem tất cả| UC03
-    Staff -->|Xem Active| UC03
+    Admin -->|Xem tất cả| UC-BANGGIA-03
+    Staff -->|Xem Active| UC-BANGGIA-03
     
-    style UC03 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style UC-BANGGIA-03 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style Admin fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     style Staff fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
@@ -405,16 +405,16 @@ flowchart TD
     UserAction -->|Tìm kiếm| Search[Tìm theo tên, mã, loại]
     UserAction -->|Sắp xếp| Sort[Sắp xếp theo cột]
     UserAction -->|Chuyển trang| Paginate[Chuyển trang]
-    UserAction -->|Xem chi tiết| Detail[Chuyển UC04]
+    UserAction -->|Xem chi tiết| Detail[Chuyển UC-BANGGIA-04]
     UserAction -->|Cập nhật| CheckDraft1{Status<br/>= Draft?}
     UserAction -->|Activate| CheckDraft2{Status<br/>= Draft?}
-    UserAction -->|Sao chép| Copy[Chuyển UC06<br/>Chỉ Admin]
+    UserAction -->|Sao chép| Copy[Chuyển UC-BANGGIA-06<br/>Chỉ Admin]
     UserAction -->|Thoát| End
     
-    CheckDraft1 -->|Có| Update[Chuyển UC02<br/>Chỉ Admin]
+    CheckDraft1 -->|Có| Update[Chuyển UC-BANGGIA-02<br/>Chỉ Admin]
     CheckDraft1 -->|Không| ErrorUpdate[Lỗi: Chỉ cập nhật Draft]
     
-    CheckDraft2 -->|Có| Activate[Chuyển UC05<br/>Chỉ Admin]
+    CheckDraft2 -->|Có| Activate[Chuyển UC-BANGGIA-05<br/>Chỉ Admin]
     CheckDraft2 -->|Không| ErrorActivate[Lỗi: Chỉ Activate Draft]
     
     ErrorUpdate --> Display
@@ -500,17 +500,15 @@ sequenceDiagram
     User->>Controller: 11. Chọn thao tác
     
     alt Xem chi tiết
-        Controller->>Controller: Chuyển UC04
+        Controller->>Controller: Chuyển UC-BANGGIA-04
     else Cập nhật (Admin, Draft)
-        Controller->>Controller: Chuyển UC02
+        Controller->>Controller: Chuyển UC-BANGGIA-02
     else Activate (Admin, Draft)
-        Controller->>Controller: Chuyển UC05
+        Controller->>Controller: Chuyển UC-BANGGIA-05
     else Sao chép (Admin)
-        Controller->>Controller: Chuyển UC06
+        Controller->>Controller: Chuyển UC-BANGGIA-06
     end
 ```
-
-**Giải thích Sequence Diagram:**
 
 **Khởi tạo (Bước 1-9):**
 - Kiểm tra vai trò user (Admin/Nhân viên)
@@ -614,193 +612,3 @@ classDiagram
     note for UserSession "Lưu filter trong session<br/>để quay lại giữ nguyên"
     note for FilterCriteria "Kết hợp nhiều điều kiện<br/>với toán tử AND"
 ```
-
----
-
-## Business Scenario
-
-### Scenario 1: Admin xem tất cả bảng giá
-
-```
-User: Admin
-Thời điểm: 04/03/2026
-
-Admin thực hiện:
-1. Truy cập "Quản lý Bảng giá"
-2. Hệ thống load mặc định
-
-Kết quả hiển thị:
-✅ Danh sách 15 bảng giá (trang 1/1):
-
-1. PL-20260304-001 | "Bảng giá vàng - 04/03/2026" | GOLD 
-   Ngày: 04/03/2026 15:46 | Status: Draft
-   Mã giá: 7/7 (100%) | Tỷ giá: 26,000
-   
-2. PL-20260303-002 | "Bảng giá vàng buổi chiều" | GOLD
-   Ngày: 03/03/2026 14:00 | Status: Active
-   Mã giá: 7/7 (100%) | Tỷ giá: 25,800
-   
-3. PL-20260303-001 | "Bảng giá vàng buổi sáng" | GOLD
-   Ngày: 03/03/2026 09:00 | Status: Inactive
-   Mã giá: 7/7 (100%) | Tỷ giá: 25,700
-
-... và 12 bảng giá khác
-
-→ Admin có thể thao tác: Xem, Cập nhật (Draft), Activate (Draft), Sao chép
-```
-
-### Scenario 2: Nhân viên chỉ xem Active
-
-```
-User: Nhân viên
-Thời điểm: 04/03/2026
-
-Nhân viên thực hiện:
-1. Truy cập "Quản lý Bảng giá"
-2. Hệ thống tự động lọc Active
-
-Kết quả hiển thị:
-✅ Danh sách 2 bảng giá Active:
-
-1. PL-20260303-002 | "Bảng giá vàng buổi chiều" | GOLD
-   Ngày: 03/03/2026 14:00 | Status: Active
-   Mã giá: 7/7 (100%)
-   
-2. PL-20260302-003 | "Bảng giá bạc" | SILVER
-   Ngày: 02/03/2026 10:00 | Status: Active
-   Mã giá: 5/5 (100%)
-
-→ Nhân viên chỉ có thể: Xem chi tiết
-→ Không thấy các bảng giá Draft và Inactive
-```
-
-### Scenario 3: Lọc theo nhiều điều kiện
-
-```
-Admin thực hiện:
-1. Lọc:
-   - Trạng thái: Draft
-   - Loại: GOLD
-   - Từ ngày: 01/03/2026
-   - Đến ngày: 31/03/2026
-   - Tìm kiếm: "buổi sáng"
-2. Áp dụng
-
-Kết quả:
-✅ 2 bảng giá phù hợp:
-
-1. PL-20260305-001 | "Bảng giá vàng buổi sáng - 05/03" | GOLD
-   Ngày: 05/03/2026 09:00 | Status: Draft
-   Mã giá: 4/7 (57%) - Đang nhập
-   
-2. PL-20260304-003 | "Bảng giá vàng buổi sáng - 04/03" | GOLD
-   Ngày: 04/03/2026 09:00 | Status: Draft
-   Mã giá: 0/7 (0%) - Chưa nhập
-
-→ Chỉ hiển thị bảng GOLD, Draft, trong tháng 3, có "buổi sáng"
-```
-
-### Scenario 4: Sắp xếp và phân trang
-
-```
-Admin có 47 bảng giá trong hệ thống
-
-Admin thực hiện:
-1. Sắp xếp theo: effectiveDate DESC (mới nhất)
-2. PageSize: 20
-3. Xem trang 1
-
-Kết quả trang 1:
-✅ Hiển thị 20 bảng giá mới nhất:
-  - Bảng giá 10/03/2026
-  - Bảng giá 09/03/2026
-  - ...
-  - Bảng giá 01/03/2026
-
-Thông tin phân trang:
-  - Trang 1/3
-  - Tổng số: 47 bảng giá
-
-Admin chuyển trang 2:
-→ Hiển thị 20 bảng giá tiếp theo (tháng 2)
-
-Admin chuyển trang 3:
-→ Hiển thị 7 bảng giá còn lại (tháng 1)
-```
-
-### Scenario 5: Không tìm thấy kết quả
-
-```
-Admin thực hiện:
-1. Lọc:
-   - Trạng thái: Active
-   - Loại: PLATINUM
-   - Tìm kiếm: "kim cương"
-2. Áp dụng
-
-Hệ thống kiểm tra:
-  - Không có bảng giá nào loại PLATINUM
-  - Không có từ khóa "kim cương"
-
-Kết quả:
-❌ Không tìm thấy bảng giá nào
-
-Message: "Không tìm thấy bảng giá nào phù hợp với điều kiện lọc."
-
-Gợi ý:
-  - Thay đổi điều kiện lọc
-  - Xóa bộ lọc (Reset về mặc định)
-```
-
-### Scenario 6: Lưu filter trong session
-
-```
-Admin thực hiện:
-1. Lọc:
-   - Status: Draft
-   - Type: GOLD
-   - Date: 01/03 - 31/03
-2. Xem kết quả: 5 bảng giá
-3. Click xem chi tiết bảng giá thứ 2 (UC04)
-4. Xem xong, quay lại danh sách
-
-Kết quả:
-✅ Filter vẫn giữ nguyên:
-  - Status: Draft ✅
-  - Type: GOLD ✅
-  - Date: 01/03 - 31/03 ✅
-  - Vẫn hiển thị 5 bảng giá như trước
-
-→ Admin không phải lọc lại
-→ Tiết kiệm thời gian
-
-Admin thoát → Đăng nhập lại:
-→ Filter reset về mặc định (All, tất cả loại, không giới hạn ngày)
-```
-
-### Scenario 7: Hiển thị tỷ lệ hoàn thành
-
-```
-Admin xem danh sách:
-
-Bảng giá 1:
-  - Có 7 mã giá
-  - 7/7 đã nhập đủ giá (mua + bán)
-  - Hiển thị: "7/7 (100%)" - Màu xanh lá
-
-Bảng giá 2:
-  - Có 7 mã giá
-  - 4/7 đã nhập đủ giá
-  - 3/7 còn thiếu giá
-  - Hiển thị: "4/7 (57%)" - Màu vàng
-
-Bảng giá 3:
-  - Có 7 mã giá
-  - 1/7 đã nhập đủ giá
-  - 6/7 còn thiếu giá
-  - Hiển thị: "1/7 (14%)" - Màu đỏ
-
-→ Admin dễ dàng nhận biết bảng giá nào cần nhập tiếp
-```
-
----

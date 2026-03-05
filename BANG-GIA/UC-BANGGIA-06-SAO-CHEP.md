@@ -1,9 +1,9 @@
-# Use Case UC-6: Sao chép Bảng giá
+# Use Case UC-BANGGIA-06: Sao chép Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-6** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-06** |
+|-----------------|------------------||
 | **Use Case Name** | Sao chép Bảng giá |
 | **Description** | Use Case "Sao chép Bảng giá" cho phép Admin tạo bảng giá mới từ bảng giá có sẵn. Bảng giá mới được tạo ở trạng thái Draft với giá độc lập được sao chép nguyên vẹn, còn giá kế thừa được tính lại theo hệ số hiện tại. |
 | **Actor(s)** | Admin |
@@ -184,13 +184,13 @@ Bảng mới (sau sao chép):
 
 ## Business Rules
 
-### BR-UC06-001: Chỉ Admin được sao chép
+### BR-BANGGIA-041: Chỉ Admin được sao chép
 
 - Chỉ Admin mới có quyền sao chép bảng giá
 - Nhân viên không có quyền này
 - Lý do: Sao chép tạo bảng giá mới, ảnh hưởng đến quy trình quản lý
 
-### BR-UC06-002: Sao chép từ mọi trạng thái
+### BR-BANGGIA-042: Sao chép từ mọi trạng thái
 
 Admin có thể sao chép từ bảng giá ở **bất kỳ trạng thái** nào:
 - **Draft**: Sao chép bảng giá đang soạn thảo
@@ -209,7 +209,7 @@ Bảng giá Inactive:
   ✅ Có thể sao chép (tái sử dụng bảng giá cũ)
 ```
 
-### BR-UC06-003: Bảng mới luôn là Draft
+### BR-BANGGIA-043: Bảng mới luôn là Draft
 
 - Bảng giá mới **luôn** được tạo với trạng thái **Draft**
 - Dù sao chép từ Active hay Inactive → Bảng mới vẫn là Draft
@@ -227,7 +227,7 @@ Sao chép từ Inactive:
   → Bảng mới: "Bảng giá vàng - 05/03/2026" (Draft)
 ```
 
-### BR-UC06-004: Tính lại giá kế thừa
+### BR-BANGGIA-044: Tính lại giá kế thừa
 
 Khi sao chép, hệ thống xử lý **2 loại giá** khác nhau:
 
@@ -255,7 +255,7 @@ Ngày 05/03/2026 - Admin sao chép bảng 03/03:
   QTVRTL: 85M × 1.05 = 89.25M / 91.35M (tính lại hệ số mới)
 ```
 
-### BR-UC06-005: Tự động sinh mã bảng giá mới
+### BR-BANGGIA-045: Tự động sinh mã bảng giá mới
 
 - Hệ thống **tự động** sinh mã bảng giá mới (không dùng mã cũ)
 - Định dạng: `BG-{Type}-{YYMMDD}-{Seq}`
@@ -268,7 +268,7 @@ Nguồn: BG-GOLD-260303-001
 → Bảng mới: BG-GOLD-260305-001 (mã mới)
 ```
 
-### BR-UC06-006: Giữ nguyên loại bảng giá
+### BR-BANGGIA-046: Giữ nguyên loại bảng giá
 
 - Loại bảng giá (priceListType) **không thể thay đổi** khi sao chép
 - Bảng mới **luôn cùng loại** với bảng nguồn
@@ -281,10 +281,10 @@ Nguồn: Bảng giá GOLD
 → Bảng mới: GOLD (không cho đổi sang SILVER)
 
 Muốn tạo bảng SILVER:
-→ Phải dùng UC01: Tạo mới (không sao chép từ GOLD)
+→ Phải dùng UC-BANGGIA-01: Tạo mới (không sao chép từ GOLD)
 ```
 
-### BR-UC06-007: Cho phép sửa thông tin cơ bản
+### BR-BANGGIA-047: Cho phép sửa thông tin cơ bản
 
 Admin có thể điều chỉnh thông tin cơ bản của bảng mới:
 - ✅ **Có thể sửa**: Tên, ngày/giờ hiệu lực, phạm vi, tỷ giá USD
@@ -304,7 +304,7 @@ Bảng mới (có thể sửa):
   - Loại: GOLD ❌ (không đổi được)
 ```
 
-### BR-UC06-008: Tính lại chuỗi kế thừa nhiều cấp
+### BR-BANGGIA-048: Tính lại chuỗi kế thừa nhiều cấp
 
 Với chuỗi kế thừa nhiều cấp (A ← B ← C):
 - Tính từ **gốc** đến **lá**
@@ -328,7 +328,7 @@ Bảng mới (sau sao chép):
   MNVT999: 84.49M × 0.995 = 84.07M (tính lại hệ số mới)
 ```
 
-### BR-UC06-009: Ghi nhận audit log chi tiết
+### BR-BANGGIA-049: Ghi nhận audit log chi tiết
 
 Mỗi lần sao chép, hệ thống ghi nhận đầy đủ:
 - Action: COPY
@@ -367,17 +367,17 @@ Details:
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC06: Sao chép Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-06: Sao chép Bảng giá
 
 ```mermaid
 graph LR
     Actor["👤 Admin"]
     
-    UC06["UC06: Sao chép Bảng giá<br/>(Tạo Draft mới + Tính lại giá kế thừa)"]
+    UC-BANGGIA-06["UC-BANGGIA-06: Sao chép Bảng giá<br/>(Tạo Draft mới + Tính lại giá kế thừa)"]
     
-    Actor -->|Thực hiện| UC06
+    Actor -->|Thực hiện| UC-BANGGIA-06
     
-    style UC06 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style UC-BANGGIA-06 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     style Actor fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
@@ -524,8 +524,6 @@ sequenceDiagram
     end
 ```
 
-**Giải thích Sequence Diagram:**
-
 **Kiểm tra nguồn (Bước 3):**
 - Tìm bảng nguồn theo ID
 - Kiểm tra có mã giá hay không
@@ -633,225 +631,3 @@ classDiagram
     note for PriceCalculationService "Tính lại giá kế thừa<br/>theo hệ số hiện tại"
     note for AuditService "Ghi log COPY<br/>với recalculated count"
 ```
-
----
-
-## Business Scenario
-
-### Scenario 1: Sao chép bảng Active thành công
-
-```
-Bảng nguồn: "Bảng giá vàng - 03/03/2026" (Active)
-Loại: GOLD
-Tổng mã giá: 7
-  - NHANVRTL (độc lập): 85M / 87M
-  - QTVRTL (Hệ số 1.0): 85M / 87M
-  - MVRTL (Hệ số 1.0): 85M / 87M
-  - MNVT9999 (Hệ số 0.994): 84.49M / 86.48M
-  - MNVT999 (Hệ số 0.999): 84.39M / 86.38M
-  - BANVI (Hệ số 1.0): 85M / 87M
-  - VHT99.99 (Hệ số 1.0): 85M / 87M
-
-Admin thực hiện:
-1. Chọn "Sao chép" từ bảng giá Active
-2. Nhập thông tin:
-   - Tên: "Bảng giá vàng - 05/03/2026"
-   - Ngày: 05/03/2026
-   - Giờ: 08:00
-   - Phạm vi: Toàn hệ thống
-   - Tỷ giá USD: 23,500
-3. Xác nhận sao chép
-
-Hệ thống xử lý:
-1. Validate: Tên hợp lệ ✅, Ngày >= hiện tại ✅
-2. Tạo bảng mới: BG-GOLD-260305-001 (Draft)
-3. Sao chép 7 mã giá:
-   
-   a) Mã giá độc lập (sao chép nguyên vẹn):
-      NHANVRTL: 85M / 87M (không đổi)
-   
-   b) Mã giá kế thừa (tính lại hệ số hiện tại):
-      QTVRTL: 85M × 1.0 = 85M / 87M (hệ số không đổi)
-      MVRTL: 85M × 1.0 = 85M / 87M (hệ số không đổi)
-      MNVT9999: 85M × 0.994 = 84.49M / 86.48M (hệ số không đổi)
-      MNVT999: 84.49M × 0.999 = 84.39M / 86.38M (hệ số không đổi)
-      BANVI: 85M × 1.0 = 85M / 87M (hệ số không đổi)
-      VHT99.99: 85M × 1.0 = 85M / 87M (hệ số không đổi)
-
-Audit Log:
-  - 10:30 - COPY
-  - Source: "Bảng giá vàng - 03/03/2026" (Active)
-  - Created: "Bảng giá vàng - 05/03/2026" (Draft)
-  - Copied: 7 mã giá
-  - Recalculated: 6 mã giá
-
-Kết quả:
-✅ Sao chép thành công
-  - Bảng mới: "Bảng giá vàng - 05/03/2026" (Draft)
-  - Mã: BG-GOLD-260305-001
-  - Sao chép: 7 mã giá
-  - Tính lại: 6 mã giá (hệ số không đổi)
-
-→ Admin có thể chỉnh sửa giá trong bảng Draft mới
-→ Sau đó Activate khi sẵn sàng
-```
-
-### Scenario 2: Sao chép với hệ số đã thay đổi
-
-```
-Bảng nguồn: "Bảng giá vàng - 03/03/2026" (Active)
-Snapshot ngày 03/03:
-  - NHANVRTL (độc lập): 85M / 87M
-  - QTVRTL (Hệ số snapshot 1.0): 85M / 87M
-
-Ngày 04/03 - Admin cập nhật hệ số QTVRTL:
-  Hệ số mua: 1.0 → 1.05
-  Hệ số bán: 1.0 → 1.05
-
-Ngày 05/03 - Admin sao chép bảng 03/03:
-
-Hệ thống xử lý:
-1. Tạo bảng mới (Draft)
-2. Sao chép mã giá:
-   
-   NHANVRTL (độc lập):
-     85M / 87M (sao chép nguyên vẹn)
-   
-   QTVRTL (kế thừa - hệ số đã đổi):
-     Hệ số hiện tại: 1.05 / 1.05 (không phải 1.0 snapshot)
-     Giá mua: 85M × 1.05 = 89.25M ← Tính lại
-     Giá bán: 87M × 1.05 = 91.35M ← Tính lại
-
-Kết quả:
-✅ Sao chép thành công với giá mới
-  - NHANVRTL: 85M / 87M (giữ nguyên)
-  - QTVRTL: 89.25M / 91.35M (tính lại, khác nguồn)
-
-Lưu ý:
-⚠️ Giá QTVRTL trong bảng mới KHÁC bảng nguồn
-→ Do hệ số đã thay đổi từ 1.0 → 1.05
-→ Bảng nguồn giữ snapshot 85M (hệ số cũ)
-→ Bảng mới tính lại 89.25M (hệ số mới)
-```
-
-### Scenario 3: Sao chép chuỗi kế thừa nhiều cấp
-
-```
-Bảng nguồn: "Bảng giá vàng - 03/03/2026" (Active)
-Chuỗi kế thừa:
-  NHANVRTL (độc lập): 85M
-  ↓ (Hệ số 0.994)
-  MNVT9999: 84.49M
-  ↓ (Hệ số 0.999)
-  MNVT999: 84.39M
-
-Ngày 04/03 - Admin cập nhật hệ số MNVT999:
-  Hệ số: 0.999 → 0.995
-
-Ngày 05/03 - Admin sao chép:
-
-Hệ thống tính lại theo thứ tự:
-1. NHANVRTL (độc lập):
-   85M (sao chép nguyên vẹn)
-
-2. MNVT9999 (cấp 1):
-   Hệ số hiện tại: 0.994 (không đổi)
-   85M × 0.994 = 84.49M ✅
-
-3. MNVT999 (cấp 2):
-   Hệ số hiện tại: 0.995 (đã đổi từ 0.999)
-   84.49M × 0.995 = 84.07M ← Tính lại với hệ số mới
-
-Kết quả:
-✅ Sao chép thành công
-  - NHANVRTL: 85M (độc lập)
-  - MNVT9999: 84.49M (tính lại, không đổi)
-  - MNVT999: 84.07M (tính lại, hệ số mới)
-
-So sánh với nguồn:
-  Bảng nguồn: MNVT999 = 84.39M (hệ số cũ 0.999)
-  Bảng mới: MNVT999 = 84.07M (hệ số mới 0.995)
-  Chênh lệch: -0.32M (do hệ số giảm)
-```
-
-### Scenario 4: Sao chép từ bảng Inactive
-
-```
-Bảng nguồn: "Bảng giá vàng - 01/03/2026" (Inactive)
-Status: Inactive (đã bị thay thế)
-Tổng mã giá: 7
-Giá snapshot từ tháng trước
-
-Admin thực hiện:
-1. Tìm bảng Inactive cũ
-2. Chọn "Sao chép"
-3. Nhập thông tin bảng mới
-4. Xác nhận
-
-Hệ thống xử lý:
-1. Validate: Nguồn Inactive ✅ (cho phép sao chép)
-2. Tạo bảng mới (Draft)
-3. Sao chép giá độc lập nguyên vẹn
-4. Tính lại giá kế thừa theo hệ số hiện tại
-
-Kết quả:
-✅ Sao chép thành công
-  - Nguồn: Inactive (01/03/2026)
-  - Bảng mới: Draft (05/03/2026)
-  
-→ Tái sử dụng bảng giá cũ
-→ Giá kế thừa được cập nhật theo hệ số mới
-→ Sẵn sàng chỉnh sửa và Activate
-```
-
-### Scenario 5: Lỗi tên trùng lặp
-
-```
-Admin thực hiện:
-1. Chọn sao chép bảng "Bảng giá vàng - 03/03/2026"
-2. Nhập tên: "Bảng giá vàng - 04/03/2026"
-
-Hệ thống kiểm tra:
-→ Đã tồn tại bảng giá với tên này
-
-Kết quả:
-❌ Lỗi: "Tên bảng giá đã tồn tại. Vui lòng chọn tên khác."
-
-Admin sửa lại:
-→ Đổi tên thành: "Bảng giá vàng - 05/03/2026"
-→ Hệ thống chấp nhận ✅
-→ Sao chép thành công
-```
-
-### Scenario 6: Sao chép và chỉnh sửa ngay
-
-```
-Admin sao chép bảng Active:
-1. Sao chép: "Bảng giá vàng - 03/03/2026" (Active)
-2. Tạo mới: "Bảng giá vàng - 05/03/2026" (Draft)
-
-Kết quả sao chép:
-✅ Bảng mới: Draft với 7 mã giá
-  - 1 độc lập: 85M / 87M
-  - 6 kế thừa: Tính lại theo hệ số hiện tại
-
-Admin tiếp tục:
-→ Chuyển sang UC02: Cập nhật giá
-→ Điều chỉnh giá NHANVRTL: 85M → 86M
-→ Hệ thống tự động tính lại 6 mã giá kế thừa
-→ Kết quả:
-    NHANVRTL: 86M (mới nhập)
-    QTVRTL: 86M × 1.05 = 90.3M (auto-calc)
-    ...
-
-→ Sau đó UC05: Activate bảng giá
-→ Bảng mới trở thành Active
-
-Kết luận:
-✅ Sao chép tạo nền tảng
-✅ Chỉnh sửa điều chỉnh giá
-✅ Activate áp dụng hệ thống
-→ Quy trình hoàn chỉnh
-```
-
----

@@ -1,9 +1,9 @@
-# Use Case UC-4: Xem chi tiết Bảng giá
+# Use Case UC-BANGGIA-04: Xem chi tiết Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-4** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-04** |
+|-----------------|------------------||
 | **Use Case Name** | Xem chi tiết Bảng giá |
 | **Description** | Use Case "Xem chi tiết Bảng giá" cho phép Admin và Nhân viên xem thông tin đầy đủ của một bảng giá, bao gồm danh sách mã giá với giá mua/bán, chuỗi kế thừa, và lịch sử thay đổi. |
 | **Actor(s)** | Admin, Nhân viên |
@@ -120,7 +120,7 @@
 
 ## Basic Flow
 
-1. User yêu cầu xem chi tiết một bảng giá cụ thể (từ danh sách UC03)
+1. User yêu cầu xem chi tiết một bảng giá cụ thể (từ danh sách UC-BANGGIA-03)
 2. Hệ thống kiểm tra quyền truy cập:
    - Admin: Cho phép xem tất cả
    - Nhân viên: Chỉ cho phép xem bảng giá Active
@@ -139,10 +139,10 @@
    - Danh sách mã giá với giá và chuỗi kế thừa
    - (Admin only) Lịch sử thay đổi
 7. User có thể thực hiện các thao tác:
-   - **Cập nhật giá** → Chuyển sang UC02 (chỉ Draft, chỉ Admin)
-   - **Activate** → Chuyển sang UC05 (chỉ Draft, chỉ Admin)
-   - **Sao chép** → Chuyển sang UC06 (chỉ Admin)
-   - **Quay lại danh sách** → Quay lại UC03
+   - **Cập nhật giá** → Chuyển sang UC-BANGGIA-02 (chỉ Draft, chỉ Admin)
+   - **Activate** → Chuyển sang UC-BANGGIA-05 (chỉ Draft, chỉ Admin)
+   - **Sao chép** → Chuyển sang UC-BANGGIA-06 (chỉ Admin)
+   - **Quay lại danh sách** → Quay lại UC-BANGGIA-03
 
 Use case kết thúc.
 
@@ -176,7 +176,7 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC04-001: Phân quyền xem chi tiết
+### BR-BANGGIA-025: Phân quyền xem chi tiết
 
 **Admin:**
 - Xem được chi tiết tất cả bảng giá (Draft, Active, Inactive)
@@ -203,7 +203,7 @@ Nhân viên:
   ❌ Không cập nhật, activate
 ```
 
-### BR-UC04-002: Hiển thị chuỗi kế thừa
+### BR-BANGGIA-026: Hiển thị chuỗi kế thừa
 
 Đối với mã giá có kế thừa trong bảng:
 - Hiển thị chuỗi kế thừa đầy đủ theo format: `PC-C ← PC-B ← PC-A`
@@ -223,7 +223,7 @@ Chuỗi kế thừa: MNVT9999 ← NHANVRTL
   - MNVT9999: Kế thừa từ NHANVRTL với hệ số 0.994
 ```
 
-### BR-UC04-003: Hiển thị giá và công thức tính
+### BR-BANGGIA-027: Hiển thị giá và công thức tính
 
 Hệ thống hiển thị chi tiết giá và cách tính:
 
@@ -258,7 +258,7 @@ MNVT9999 (kế thừa từ NHANVRTL):
   Công thức: 87,000,000 × 0.994 = 86,478,000
 ```
 
-### BR-UC04-004: Thống kê hoàn thành
+### BR-BANGGIA-028: Thống kê hoàn thành
 
 Hiển thị thống kê chi tiết về tình trạng nhập giá:
 - **Tổng số mã giá**: Số lượng mã giá trong bảng
@@ -283,7 +283,7 @@ Thống kê:
   Tỷ lệ hoàn thành: 71%
 ```
 
-### BR-UC04-005: Lịch sử thay đổi (Audit Log)
+### BR-BANGGIA-029: Lịch sử thay đổi (Audit Log)
 
 Chỉ Admin mới xem được lịch sử thay đổi:
 
@@ -318,7 +318,7 @@ Lịch sử thay đổi:
    - Tạo bảng giá Draft với 7 mã giá
 ```
 
-### BR-UC04-006: Highlight giá thiếu
+### BR-BANGGIA-030: Highlight giá thiếu
 
 Hệ thống highlight các mã giá còn thiếu giá:
 - Màu đỏ: Thiếu cả giá mua và giá bán
@@ -342,7 +342,7 @@ Entry 3 - MVRTL:
   Giá bán: NULL ⚠️ (thiếu)
 ```
 
-### BR-UC04-007: Snapshot cho bảng Active/Inactive
+### BR-BANGGIA-031: Snapshot cho bảng Active/Inactive
 
 Bảng giá Active và Inactive hiển thị giá **snapshot** tại thời điểm activate:
 - Giá không thay đổi dù hệ số mã giá thay đổi sau này
@@ -366,7 +366,7 @@ Ngày 04/03/2026, Admin cập nhật hệ số NHANVRTL → 1.05
 → Bảng giá này vẫn giữ nguyên 85M và 87M (không thay đổi)
 ```
 
-### BR-UC04-008: Ghi nhận truy cập (Optional)
+### BR-BANGGIA-032: Ghi nhận truy cập (Optional)
 
 Hệ thống có thể ghi nhận lịch sử truy cập để audit:
 - User nào đã xem bảng giá nào
@@ -377,19 +377,19 @@ Hệ thống có thể ghi nhận lịch sử truy cập để audit:
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC04: Xem chi tiết Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-04: Xem chi tiết Bảng giá
 
 ```mermaid
 graph LR
     Admin["👤 Admin"]
     Staff["👤 Nhân viên"]
     
-    UC04["UC04: Xem chi tiết Bảng giá"]
+    UC-BANGGIA-04["UC-BANGGIA-04: Xem chi tiết Bảng giá"]
     
-    Admin -->|Xem tất cả + Audit log| UC04
-    Staff -->|Xem Active| UC04
+    Admin -->|Xem tất cả + Audit log| UC-BANGGIA-04
+    Staff -->|Xem Active| UC-BANGGIA-04
     
-    style UC04 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    style UC-BANGGIA-04 fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style Admin fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     style Staff fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
@@ -398,7 +398,7 @@ graph LR
 
 ```mermaid
 flowchart TD
-    Start([Bắt đầu]) --> GetId[User chọn bảng giá từ UC03]
+    Start([Bắt đầu]) --> GetId[User chọn bảng giá từ UC-BANGGIA-03]
     
     GetId --> CheckExists{Bảng giá<br/>tồn tại?}
     
@@ -429,10 +429,10 @@ flowchart TD
     
     Display --> UserAction{User<br/>chọn thao tác}
     
-    UserAction -->|Cập nhật giá| ToUC02[Chuyển UC02]
-    UserAction -->|Activate| ToUC05[Chuyển UC05]
-    UserAction -->|Sao chép| ToUC06[Chuyển UC06]
-    UserAction -->|Quay lại| ToUC03[Quay UC03]
+    UserAction -->|Cập nhật giá| ToUC02[Chuyển UC-BANGGIA-02]
+    UserAction -->|Activate| ToUC05[Chuyển UC-BANGGIA-05]
+    UserAction -->|Sao chép| ToUC06[Chuyển UC-BANGGIA-06]
+    UserAction -->|Quay lại| ToUC03[Quay UC-BANGGIA-03]
     
     ToUC02 --> End2([Kết thúc])
     ToUC05 --> End2
@@ -500,13 +500,13 @@ sequenceDiagram
             User->>Controller: 12. Chọn thao tác
             
             alt Cập nhật giá (Draft, Admin)
-                Controller->>Controller: Chuyển UC02
+                Controller->>Controller: Chuyển UC-BANGGIA-02
             else Activate (Draft, Admin)
-                Controller->>Controller: Chuyển UC05
+                Controller->>Controller: Chuyển UC-BANGGIA-05
             else Sao chép (Admin)
-                Controller->>Controller: Chuyển UC06
+                Controller->>Controller: Chuyển UC-BANGGIA-06
             else Quay lại
-                Controller->>Controller: Quay UC03
+                Controller->>Controller: Quay UC-BANGGIA-03
             end
         end
     end
@@ -640,234 +640,3 @@ classDiagram
     note for StatisticsService "Tính tỷ lệ hoàn thành<br/>Xác định mã thiếu giá"
     note for AuditService "Lịch sử thay đổi<br/>Chỉ cho Admin"
 ```
-
----
-
-## Business Scenario
-
-### Scenario 1: Admin xem chi tiết bảng giá Draft
-
-```
-User: Admin
-Bảng giá: "Bảng giá vàng - 04/03/2026" (Draft)
-
-Admin thực hiện:
-1. Từ danh sách (UC03), click xem chi tiết
-2. Hệ thống load thông tin
-
-Kết quả hiển thị:
-✅ CHI TIẾT BẢNG GIÁ
-
-=== THÔNG TIN CƠ BẢN ===
-Mã: PL-20260304-001
-Tên: "Bảng giá vàng - 04/03/2026"
-Loại: GOLD
-Ngày áp dụng: 04/03/2026 15:46
-Phạm vi: Toàn bộ hệ thống
-Tỷ giá USD: 26,000
-Trạng thái: Draft
-Tạo bởi: Admin A - 04/03/2026 15:46
-Cập nhật: Admin A - 04/03/2026 15:50
-
-=== THỐNG KÊ ===
-Tổng số mã giá: 7
-Đã nhập đủ giá: 4 (57%)
-Thiếu giá mua: 1
-Thiếu giá bán: 2
-
-=== DANH SÁCH MÃ GIÁ ===
-
-1. NHANVRTL - Nhẫn Vàng rồng
-   Loại: Độc lập (không kế thừa)
-   Hàm lượng: 24k | Thương hiệu: Vàng rồng Thăng Long
-   Hệ số: 1 / 1
-   Giá mua: 85,000,000 VNĐ (Nhập trực tiếp) ✅
-   Giá bán: 87,000,000 VNĐ (Nhập trực tiếp) ✅
-
-2. QTVRTL - Quỳ tống Vàng Rồng
-   Chuỗi kế thừa: QTVRTL ← NHANVRTL
-   Hàm lượng: 24k | Thương hiệu: Vàng rồng Thăng Long
-   Hệ số: 1 / 1
-   Giá mua: 85,000,000 VNĐ (Tự động) ✅
-     Công thức: 85,000,000 × 1 = 85,000,000
-   Giá bán: 87,000,000 VNĐ (Tự động) ✅
-     Công thức: 87,000,000 × 1 = 87,000,000
-
-3. MNVT9999 - Vàng trang sức 9999
-   Chuỗi kế thừa: MNVT9999 ← NHANVRTL
-   Hàm lượng: 24k | Thương hiệu: Vàng trang sức Bảo Tín
-   Hệ số: 0.994 / 0.994
-   Giá mua: 84,490,000 VNĐ (Tự động) ✅
-     Công thức: 85,000,000 × 0.994 = 84,490,000
-   Giá bán: 86,478,000 VNĐ (Tự động) ✅
-     Công thức: 87,000,000 × 0.994 = 86,478,000
-
-4. BANVI - Vàng bản vỉ
-   Chuỗi kế thừa: BANVI ← NHANVRTL
-   Hàm lượng: 24k | Thương hiệu: Vàng bản vỉ, thỏi
-   Hệ số: 1 / 1
-   Giá mua: NULL ⚠️ (Chưa nhập)
-   Giá bán: NULL ⚠️ (Chưa nhập)
-   Lý do: Mã gốc NHANVRTL chưa có giá
-
-=== LỊCH SỬ THAY ĐỔI (Admin) ===
-
-1. 04/03/2026 15:50 - Admin A - UPDATE_PRICES
-   - Cập nhật giá NHANVRTL: 85M / 87M
-   - Tự động tính lại: QTVRTL, MVRTL, MNVT9999
-
-2. 04/03/2026 15:46 - Admin A - CREATE
-   - Tạo bảng giá Draft với 7 mã giá
-
-→ Admin có thể: Cập nhật giá, Activate (nếu đủ điều kiện), Sao chép
-```
-
-### Scenario 2: Nhân viên xem chi tiết bảng giá Active
-
-```
-User: Nhân viên
-Bảng giá: "Bảng giá vàng - 03/03/2026" (Active)
-
-Nhân viên thực hiện:
-1. Từ danh sách, click xem chi tiết
-2. Hệ thống load thông tin
-
-Kết quả hiển thị:
-✅ CHI TIẾT BẢNG GIÁ
-
-=== THÔNG TIN CƠ BẢN ===
-Mã: PL-20260303-002
-Tên: "Bảng giá vàng buổi chiều"
-Loại: GOLD
-Ngày áp dụng: 03/03/2026 14:00
-Trạng thái: Active ✅
-Activated: 03/03/2026 14:00 by Admin B
-
-⚠️ Lưu ý: Giá trong bảng này đã được snapshot tại 03/03/2026 14:00.
-Các thay đổi hệ số mã giá sau thời điểm này không ảnh hưởng đến bảng giá này.
-
-=== THỐNG KÊ ===
-Tổng số mã giá: 7
-Đã nhập đủ giá: 7 (100%) ✅
-
-=== DANH SÁCH MÃ GIÁ ===
-(Hiển thị 7 mã giá với giá đầy đủ - đã snapshot)
-
-→ Nhân viên chỉ có thể: Quay lại danh sách
-→ Không xem được lịch sử thay đổi
-→ Không thể cập nhật hoặc activate
-```
-
-### Scenario 3: Nhân viên cố xem bảng giá Draft
-
-```
-User: Nhân viên
-Bảng giá: "Bảng giá vàng - 04/03/2026" (Draft)
-
-Nhân viên thực hiện:
-1. Cố gắng truy cập URL chi tiết bảng giá Draft
-2. Hệ thống kiểm tra quyền
-
-Kết quả:
-❌ Lỗi: "Không có quyền xem bảng giá này."
-
-Giải thích:
-- Nhân viên chỉ được xem bảng giá Active
-- Bảng giá Draft và Inactive chỉ Admin mới xem được
-
-→ Quay lại danh sách (chỉ hiển thị Active)
-```
-
-### Scenario 4: Hiển thị công thức tính giá chi tiết
-
-```
-Admin xem bảng giá có chuỗi kế thừa:
-
-Entry: MNVT999 (Vàng trang sức 999)
-Chuỗi kế thừa: MNVT999 ← MNVT9999 ← NHANVRTL
-
-Chi tiết tính giá:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Step 1: NHANVRTL (Mã gốc - Độc lập)
-  Giá mua: 85,000,000 (Nhập trực tiếp)
-  Giá bán: 87,000,000 (Nhập trực tiếp)
-
-Step 2: MNVT9999 (Level 1 - Kế thừa NHANVRTL)
-  Hệ số: 0.994 / 0.994
-  Giá mua: 85,000,000 × 0.994 = 84,490,000
-  Giá bán: 87,000,000 × 0.994 = 86,478,000
-
-Step 3: MNVT999 (Level 2 - Kế thừa MNVT9999)
-  Hệ số: 0.999 / 0.999
-  Giá mua: 84,490,000 × 0.999 = 84,405,510
-  Giá bán: 86,478,000 × 0.999 = 86,391,522
-
-→ Giá cuối cùng: 84,405,510 / 86,391,522
-```
-
-### Scenario 5: Xem bảng giá thiếu giá
-
-```
-Admin xem bảng giá có một số mã thiếu giá:
-
-=== THỐNG KÊ ===
-Tổng số mã giá: 7
-Đã nhập đủ giá: 3 (43%)
-Thiếu giá mua: 2
-Thiếu giá bán: 2
-
-⚠️ CẢ NH BÁO: Bảng giá chưa đầy đủ, không thể Activate
-
-=== MÃ GIÁ THIẾU GIÁ ===
-
-1. NHANVRTL - Thiếu giá bán ⚠️
-   Giá mua: 85,000,000 ✅
-   Giá bán: NULL ⚠️
-
-2. MVRTL - Thiếu cả 2 giá ❌
-   Giá mua: NULL ❌
-   Giá bán: NULL ❌
-
-3. BANVI - Thiếu giá mua ⚠️
-   Giá mua: NULL ⚠️
-   Giá bán: 88,000,000 ✅
-
-→ Admin cần: Cập nhật giá cho các mã thiếu (UC02)
-→ Sau khi nhập đủ → Có thể Activate (UC05)
-```
-
-### Scenario 6: Xem lịch sử thay đổi (Admin only)
-
-```
-Admin xem bảng giá đã Active:
-
-=== LỊCH SỬ THAY ĐỔI ===
-
-1. 03/03/2026 14:00 - Admin B - ACTIVATE
-   Changes:
-   - Status: Draft → Active
-   - Snapshot: 7 mã giá với giá đầy đủ
-   - activatedAt: 03/03/2026 14:00
-   - Auto: Chuyển bảng Active cũ → Inactive
-
-2. 03/03/2026 13:55 - Admin B - UPDATE_PRICES
-   Changes:
-   - NHANVRTL: Giá mua 84M → 85M
-   - NHANVRTL: Giá bán 86M → 87M
-   - Cascade: QTVRTL, MVRTL, MNVT9999 tính lại
-
-3. 03/03/2026 13:50 - Admin B - UPDATE_PRICES
-   Changes:
-   - NHANVRTL: NULL → 84M / 86M
-   - QTVRTL, MVRTL: Tính tự động
-
-4. 03/03/2026 13:45 - Admin B - CREATE
-   Changes:
-   - Tạo bảng giá Draft "Bảng giá vàng buổi chiều"
-   - Loại: GOLD
-   - 7 mã giá, giá = NULL
-
-→ Admin thấy rõ lịch sử: Tạo → Nhập giá → Sửa giá → Activate
-```
-
----

@@ -1,9 +1,9 @@
-# Use Case UC-2: Cập nhật Bảng giá
+# Use Case UC-BANGGIA-02: Cập nhật Bảng giá
 
 ---
 
-| **Use Case ID** | **UC-2** |
-|-----------------|----------|
+| **Use Case ID** | **UC-BANGGIA-02** |
+|-----------------|------------------||
 | **Use Case Name** | Cập nhật Bảng giá |
 | **Description** | Use Case "Cập nhật Bảng giá" cho phép Admin nhập và chỉnh sửa giá cho các mã giá trong bảng giá ở trạng thái Draft. Hệ thống tự động tính giá cho các mã giá kế thừa dựa trên hệ số và giá gốc. |
 | **Actor(s)** | Admin |
@@ -169,13 +169,13 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC02-001: Chỉ cập nhật Draft
+### BR-BANGGIA-010: Chỉ cập nhật Draft
 
 - Chỉ có thể cập nhật giá cho bảng giá ở trạng thái **Draft**
 - Bảng giá **Active** và **Inactive** không thể chỉnh sửa
 - Mục đích: Đảm bảo tính toàn vẹn của bảng giá đã áp dụng
 
-### BR-UC02-002: Chỉ nhập giá cho mã độc lập
+### BR-BANGGIA-011: Chỉ nhập giá cho mã độc lập
 
 - Admin chỉ được phép nhập giá cho **mã giá độc lập** (không kế thừa)
 - Mã giá kế thừa có giá được **tính tự động** dựa trên hệ số
@@ -191,7 +191,7 @@ QTVRTL (kế thừa từ NHANVRTL):
   ✅ Tự động tính: Giá mua = 85,000,000 × 1 = 85,000,000
 ```
 
-### BR-UC02-003: Tính giá tự động cho mã kế thừa
+### BR-BANGGIA-012: Tính giá tự động cho mã kế thừa
 
 Khi cập nhật giá cho mã giá độc lập, hệ thống tự động tính lại giá cho tất cả mã giá kế thừa theo công thức:
 
@@ -230,7 +230,7 @@ Nếu có mã X kế thừa MNVT9999 (Hệ số = 0.99):
   → Giá bán = 86,478,000 × 0.99 = 85,613,220
 ```
 
-### BR-UC02-004: Cho phép giá NULL
+### BR-BANGGIA-013: Cho phép giá NULL
 
 - Cho phép lưu giá = NULL (chưa nhập)
 - Khi lưu với giá thiếu:
@@ -251,7 +251,7 @@ QTVRTL kế thừa NHANVRTL:
 → Cảnh báo: "QTVRTL thiếu giá bán"
 ```
 
-### BR-UC02-005: Cascade update
+### BR-BANGGIA-014: Cascade update
 
 - Khi cập nhật giá của mã gốc → Tất cả mã kế thừa tính lại
 - Cascade theo chuỗi kế thừa nhiều cấp
@@ -272,7 +272,7 @@ Sau update (tự động):
   └─ MVRTL (×1): 86,000,000 / 88,000,000 ✅ Auto
 ```
 
-### BR-UC02-006: Validate giá hợp lệ
+### BR-BANGGIA-015: Validate giá hợp lệ
 
 - Giá phải >= 0 (không được âm)
 - Giá có thể = 0 (trường hợp đặc biệt)
@@ -294,17 +294,17 @@ Không hợp lệ:
 
 ## Diagrams
 
-### 1. Use Case Diagram - UC02: Cập nhật Bảng giá
+### 1. Use Case Diagram - UC-BANGGIA-02: Cập nhật Bảng giá
 
 ```mermaid
 graph LR
     Actor["👤 Admin"]
     
-    UC02["UC02: Cập nhật Bảng giá<br/>(Nhập giá + Auto-calc)"]
+    UC-BANGGIA-02["UC-BANGGIA-02: Cập nhật Bảng giá<br/>(Nhập giá + Auto-calc)"]
     
-    Actor -->|Thực hiện| UC02
+    Actor -->|Thực hiện| UC-BANGGIA-02
     
-    style UC02 fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style UC-BANGGIA-02 fill:#fff3e0,stroke:#e65100,stroke-width:2px
     style Actor fill:#fff9c4,stroke:#f57f17,stroke-width:2px
 ```
 
@@ -519,16 +519,6 @@ classDiagram
     note for PriceCode "isIndependent:<br/>parentPriceCode = NULL"
 ```
 
----
-
-## Business Scenario
-
-### Scenario 1: Nhập giá cho mã độc lập và tự động tính mã kế thừa
-
-```
-Bảng giá: "Bảng giá vàng - 04/03/2026"
-Status: Draft
-
 Danh sách mã giá:
   1. NHANVRTL (độc lập): NULL / NULL
   2. QTVRTL (kế thừa NHANVRTL, Hệ số 1/1): NULL / NULL
@@ -669,7 +659,7 @@ Kết quả:
          Bảng giá này đang ở trạng thái Active."
 
 Giải pháp:
-→ Sử dụng UC06: Sao chép bảng giá → Tạo Draft mới
+→ Sử dụng UC-BANGGIA-06: Sao chép bảng giá → Tạo Draft mới
 → Cập nhật giá trong bảng Draft mới
 → Activate bảng mới (bảng cũ tự động chuyển Inactive)
 ```
