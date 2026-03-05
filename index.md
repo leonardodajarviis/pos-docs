@@ -44,3 +44,7 @@ Quản lý mã giá
 
 - [Template Tổng Quan](TONG-QUAN-TEMPLATE)
 - [Template Use Case](UC_TEMPLATE)
+
+## Tài liệu khác
+
+- [Demo Mermaid Diagrams](MERMAID-DEMO)
