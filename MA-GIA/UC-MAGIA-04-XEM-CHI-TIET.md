@@ -1,9 +1,9 @@
-# Use Case UC-4: Xem chi tiết Mã giá
+# Use Case UC-MAGIA-04: Xem chi tiết Mã giá
 
 ---
 
-| **Use Case ID** | **UC-4** |
-|-----------------|----------|
+| **Use Case ID** | **UC-MAGIA-04** |
+|-----------------|-----------------||
 | **Use Case Name** | Xem chi tiết Mã giá |
 | **Description** | Use Case "Xem chi tiết Mã giá" cho phép Admin và Nhân viên xem thông tin đầy đủ của một mã giá, bao gồm chuỗi kế thừa và lịch sử thay đổi. |
 | **Actor(s)** | Admin, Nhân viên |
@@ -147,7 +147,7 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC04-001: Phân quyền xem chi tiết
+### BR-MAGIA-021: Phân quyền xem chi tiết
 
 **Admin:**
 - Xem được chi tiết tất cả mã giá (Active và Inactive)
@@ -159,7 +159,7 @@ Use case kết thúc.
 - Không xem được lịch sử thay đổi
 - Chỉ có thể Quay lại danh sách (không sửa, không đổi trạng thái)
 
-### BR-UC04-002: Hiển thị chuỗi kế thừa
+### BR-MAGIA-022: Hiển thị chuỗi kế thừa
 
 Đối với mã giá có kế thừa:
 - Hiển thị chuỗi kế thừa đầy đủ theo format: `PC-C ← PC-B ← PC-A`
@@ -175,7 +175,7 @@ Chuỗi kế thừa: PC-003 ← PC-002 ← PC-001
   - PC-003: Kế thừa từ PC-002 (Dây chuyền SJC)
 ```
 
-### BR-UC04-003: Giá trị hiệu lực (Effective Values)
+### BR-MAGIA-023: Giá trị hiệu lực (Effective Values)
 
 Hệ thống tính toán và hiển thị **giá trị hiệu lực** cho các trường có thể kế thừa:
 
@@ -197,7 +197,7 @@ Mã giá PC-003:
 - Hệ số bán: NULL → Hiệu lực: 1.035 (kế thừa từ PC-001)
 ```
 
-### BR-UC04-004: Lịch sử thay đổi (Audit Log)
+### BR-MAGIA-024: Lịch sử thay đổi (Audit Log)
 
 Chỉ Admin mới xem được lịch sử thay đổi:
 
@@ -215,15 +215,15 @@ Chỉ Admin mới xem được lịch sử thay đổi:
 
 **Sắp xếp:** Thời gian mới nhất lên đầu
 
-### BR-UC04-005: Thông tin nhóm hàng đầy đủ
+### BR-MAGIA-025: Thông tin nhóm hàng đầy đủ
 
 Hiển thị thông tin nhóm hàng đầy đủ bao gồm:
 - Mã nhóm hàng (`categoryCode`)
 - Tên nhóm hàng (`categoryName`)
 - Đường dẫn đầy đủ (`categoryPath`): "Trang sức > Nhẫn > Nhẫn vàng 24K"
-- Xác nhận là leaf category (nhóm lá)
+- Xác nhận là nhóm hàng nhỏ nhất (không có nhóm con)
 
-### BR-UC04-006: Ghi nhận truy cập (Optional)
+### BR-MAGIA-026: Ghi nhận truy cập (Optional)
 
 Hệ thống có thể ghi nhận lịch sử truy cập để audit:
 - User nào đã xem mã giá nào

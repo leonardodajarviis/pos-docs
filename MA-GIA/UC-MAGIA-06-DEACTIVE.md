@@ -1,9 +1,9 @@
-# Use Case UC-6: Vô hiệu hóa Mã giá (Deactive)
+# Use Case UC-MAGIA-06: Vô hiệu hóa Mã giá (Deactive)
 
 ---
 
-| **Use Case ID** | **UC-6** |
-|-----------------|----------|
+| **Use Case ID** | **UC-MAGIA-06** |
+|-----------------|-----------------||
 | **Use Case Name** | Vô hiệu hóa Mã giá (Deactive) |
 | **Description** | Use Case "Vô hiệu hóa Mã giá" cho phép Admin vô hiệu hóa mã giá đang Active để ngừng sử dụng trong hệ thống. |
 | **Actor(s)** | Admin |
@@ -117,19 +117,19 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC06-001: Chỉ Admin được vô hiệu hóa
+### BR-MAGIA-033: Chỉ Admin được vô hiệu hóa
 
 - Chỉ Admin mới có quyền vô hiệu hóa mã giá
 - Nhân viên không có quyền này
 - Lý do: Tránh thay đổi không kiểm soát ảnh hưởng đến toàn hệ thống
 
-### BR-UC06-002: Chỉ vô hiệu hóa mã giá Active
+### BR-MAGIA-034: Chỉ vô hiệu hóa mã giá Active
 
 - Chỉ có thể vô hiệu hóa mã giá đang ở trạng thái **Active**
 - Nếu mã giá đã Inactive → Từ chối thao tác
 - Mục đích: Tránh thao tác không cần thiết
 
-### BR-UC06-003: Kiểm tra mã giá con (Children)
+### BR-MAGIA-035: Kiểm tra mã giá con (Children)
 
 Trước khi vô hiệu hóa mã giá:
 - **Phải kiểm tra không có mã giá con nào đang Active**
@@ -150,7 +150,7 @@ Muốn Deactive PC-001:
 → Vô hiệu hóa từ lá (leaf) lên gốc (root)
 ```
 
-### BR-UC06-004: Không ảnh hưởng bảng giá đã tồn tại
+### BR-MAGIA-036: Không ảnh hưởng bảng giá đã tồn tại
 
 Việc vô hiệu hóa mã giá **không ảnh hưởng** đến các bảng giá đã tồn tại:
 - Các bảng giá đã Active trước khi mã giá bị Deactive → Vẫn hoạt động bình thường
@@ -171,7 +171,7 @@ Thời điểm T3: Tạo bảng giá mới
 - Phải chọn mã giá Active khác
 ```
 
-### BR-UC06-005: Ghi nhận audit log
+### BR-MAGIA-037: Ghi nhận audit log
 
 Mỗi lần vô hiệu hóa mã giá, hệ thống ghi nhận đầy đủ:
 - Action: DEACTIVATE
@@ -183,7 +183,7 @@ Mỗi lần vô hiệu hóa mã giá, hệ thống ghi nhận đầy đủ:
 
 Mục đích: Theo dõi lịch sử thay đổi trạng thái
 
-### BR-UC06-006: Có thể kích hoạt lại
+### BR-MAGIA-038: Có thể kích hoạt lại
 
 - Mã giá đã bị Deactive có thể được kích hoạt lại thông qua UC05
 - Dữ liệu mã giá được giữ nguyên, chỉ thay đổi status

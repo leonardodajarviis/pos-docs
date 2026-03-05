@@ -1,9 +1,9 @@
-# Use Case UC-2: Cập nhật Mã giá
+# Use Case UC-MAGIA-02: Cập nhật Mã giá
 
 ---
 
-| **Use Case ID** | **UC-2** |
-|-----------------|----------|
+| **Use Case ID** | **UC-MAGIA-02** |
+|-----------------|-----------------||
 | **Use Case Name** | Cập nhật Mã giá |
 | **Description** | Use Case "Cập nhật Mã giá" cho phép Admin cập nhật thông tin và hệ số của mã giá đã tồn tại. Lưu ý: Thay đổi hệ số chỉ áp dụng cho bảng giá mới, không ảnh hưởng đến bảng giá đã Active. |
 | **Actor(s)** | Admin |
@@ -146,19 +146,19 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC02-001: Không được thay đổi nhóm hàng
+### BR-MAGIA-008: Không được thay đổi nhóm hàng
 
 - Sau khi mã giá được tạo, **không được phép thay đổi nhóm hàng** (`categoryId`)
 - Lý do: Mỗi nhóm hàng chỉ có một mã giá, việc thay đổi nhóm hàng sẽ gây xung đột
 - Nếu cần thay đổi nhóm hàng: Vô hiệu hóa mã giá hiện tại và tạo mã giá mới cho nhóm hàng mới
 
-### BR-UC02-002: Không được thay đổi quan hệ kế thừa
+### BR-MAGIA-009: Không được thay đổi quan hệ kế thừa
 
 - Sau khi mã giá được tạo, **không được phép thay đổi mã giá gốc kế thừa** (`parentPriceCodeId`)
 - Lý do: Thay đổi quan hệ kế thừa sẽ làm thay đổi cấu trúc chuỗi kế thừa, có thể tạo vòng lặp
 - Nếu cần thay đổi quan hệ kế thừa: Tạo mã giá mới với quan hệ kế thừa mong muốn
 
-### BR-UC02-003: Snapshot Mechanism - Hệ số không ảnh hưởng bảng giá cũ
+### BR-MAGIA-010: Snapshot Mechanism - Hệ số không ảnh hưởng bảng giá cũ
 
 Khi Admin thay đổi hệ số mua vào hoặc hệ số bán ra:
 - **Không ảnh hưởng** đến các bảng giá đã có trạng thái Active
@@ -179,19 +179,19 @@ Kết quả:
 - Bảng giá BG-002 (tạo sau T2): Sử dụng hệ số 1.050
 ```
 
-### BR-UC02-004: Chỉ cập nhật mã giá Active
+### BR-MAGIA-011: Chỉ cập nhật mã giá Active
 
 - Chỉ được phép cập nhật mã giá có trạng thái **Active**
 - Mã giá Inactive không được phép cập nhật
 - Nếu cần cập nhật mã giá Inactive: Phải kích hoạt lại (Active) trước
 
-### BR-UC02-005: Xác thực hệ số
+### BR-MAGIA-012: Xác thực hệ số
 
 - Hệ số mua vào phải > 0
 - Hệ số bán ra phải > 0
 - Các trường văn bản (goldContent, brand) tối đa theo ràng buộc
 
-### BR-UC02-006: Audit log
+### BR-MAGIA-013: Audit log
 
 - Hệ thống ghi nhận đầy đủ thông tin cập nhật:
   - Người cập nhật (`updatedBy`)

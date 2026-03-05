@@ -1,9 +1,9 @@
-# Use Case UC-3: Xem danh sách Mã giá
+# Use Case UC-MAGIA-03: Xem danh sách Mã giá
 
 ---
 
-| **Use Case ID** | **UC-3** |
-|-----------------|----------|
+| **Use Case ID** | **UC-MAGIA-03** |
+|-----------------|-----------------||
 | **Use Case Name** | Xem danh sách Mã giá |
 | **Description** | Use Case "Xem danh sách Mã giá" cho phép Admin và Nhân viên xem danh sách các mã giá trong hệ thống với khả năng lọc, tìm kiếm và phân trang. |
 | **Actor(s)** | Admin, Nhân viên |
@@ -161,7 +161,7 @@ Use case quay lại bước 3
 
 ## Business Rules
 
-### BR-UC03-001: Phân quyền xem danh sách
+### BR-MAGIA-014: Phân quyền xem danh sách
 
 **Admin:**
 - Xem được tất cả mã giá (Active và Inactive)
@@ -173,7 +173,7 @@ Use case quay lại bước 3
 - Không có filter trạng thái
 - Chỉ có thể Xem chi tiết (không sửa, không đổi trạng thái)
 
-### BR-UC03-002: Mặc định
+### BR-MAGIA-015: Mặc định
 
 Khi lần đầu thực hiện:
 - Trả về tất cả mã giá Active (Admin) hoặc chỉ Active (Nhân viên)
@@ -181,7 +181,7 @@ Khi lần đầu thực hiện:
 - 20 bản ghi mỗi trang
 - Trang đầu tiên (page = 1)
 
-### BR-UC03-003: Tìm kiếm
+### BR-MAGIA-016: Tìm kiếm
 
 Tìm kiếm theo từ khóa (case-insensitive) trong các trường:
 - Mã nhóm hàng (`categoryCode`)
@@ -197,7 +197,7 @@ Từ khóa: "9999"
   - Hàm lượng: "99.99%"
 ```
 
-### BR-UC03-004: Lọc kết hợp
+### BR-MAGIA-017: Lọc kết hợp
 
 User có thể lọc đồng thời nhiều điều kiện:
 - Trạng thái = Active
@@ -207,14 +207,14 @@ User có thể lọc đồng thời nhiều điều kiện:
 
 → Hệ thống áp dụng **AND** cho tất cả điều kiện
 
-### BR-UC03-005: Phân trang
+### BR-MAGIA-018: Phân trang
 
 - Mặc định: 20 bản ghi/trang
 - Các lựa chọn: 10, 20, 50, 100
 - Nếu tổng số < pageSize → Trả về tất cả trong 1 trang
 - Khi thay đổi pageSize → Quay về trang 1
 
-### BR-UC03-006: Sắp xếp
+### BR-MAGIA-019: Sắp xếp
 
 **Các trường có thể sắp xếp:**
 - Nhóm hàng (categoryName): A-Z hoặc Z-A
@@ -223,7 +223,7 @@ User có thể lọc đồng thời nhiều điều kiện:
 
 **Mặc định:** Sắp xếp theo `createdAt DESC` (mới nhất lên đầu)
 
-### BR-UC03-007: Lưu trạng thái filter
+### BR-MAGIA-020: Lưu trạng thái filter
 
 Hệ thống lưu trạng thái filter/search trong session của user:
 - Khi User chuyển sang UC04 (Xem chi tiết) rồi quay lại → Giữ nguyên filter

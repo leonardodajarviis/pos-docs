@@ -1,7 +1,7 @@
 1. Mô tả 
 
 Mã giá là thực thể trung gian dùng để xác định cách tính giá mua vào và bán ra cho các nhóm hàng hóa. 
-Mã giá được liên kết với nhóm hàng nhỏ nhất (leaf category) trong cấu trúc nhóm hàng hóa cha – con nhằm đảm bảo việc tra cứu giá có thể thực hiện bằng khóa xác định duy nhất. 
+Mã giá được liên kết với nhóm hàng nhỏ nhất trong cấu trúc nhóm hàng hóa cha – con nhằm đảm bảo việc tra cứu giá có thể thực hiện bằng khóa xác định duy nhất. 
 
  
 
@@ -69,7 +69,7 @@ Ràng buộc:
 
 6. Ràng buộc toàn vẹn giữa Nhóm hàng và Mã Giá (Category–PriceCode Integrity) 
 
-Mã giá chỉ được gắn với nhóm hàng ở mức leaf category. 
+Mã giá chỉ được gắn với nhóm hàng nhỏ nhất (không có nhóm con). 
 
 Hệ thống áp dụng các ràng buộc sau: 
 

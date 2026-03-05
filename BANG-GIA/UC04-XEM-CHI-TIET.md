@@ -425,36 +425,19 @@ flowchart TD
     CheckAdmin -->|Có| LoadHistory[Load lịch sử thay đổi]
     CheckAdmin -->|Không| Display
     
-    LoadHistory --> Display[Hiển thị chi tiết đầy đủ:<br/>- Thông tin bảng giá<br/>- Danh sách mã giá + giá<br/>- Công thức tính giá<br/>- Thống kê<br/>- (Admin) Audit log]
+    LoadHistory --> Display[Hiển thị chi tiết đầy đủ:<br/>- Thông tin bảng giá<br/>- Danh sách mã giá + giá<br/>- Công thức tính giá<br/>- Thống kê<br/>- Audit log nếu Admin]
     
-    Display --> UserAction{User<br/>thao tác}
+    Display --> UserAction{User<br/>chọn thao tác}
     
-    UserAction -->|Cập nhật giá| CheckDraft1{Status<br/>= Draft?}
-    UserAction -->|Activate| CheckDraft2{Status<br/>= Draft?}
-    UserAction -->|Sao chép| CheckAdminAction1{Là<br/>Admin?}
-    UserAction -->|Quay lại| BackList[Quay UC03]
+    UserAction -->|Cập nhật giá| ToUC02[Chuyển UC02]
+    UserAction -->|Activate| ToUC05[Chuyển UC05]
+    UserAction -->|Sao chép| ToUC06[Chuyển UC06]
+    UserAction -->|Quay lại| ToUC03[Quay UC03]
     
-    CheckDraft1 -->|Không| ErrorDraft1[Lỗi: Chỉ cập nhật Draft]
-    CheckDraft1 -->|Có| CheckAdminAction2{Là<br/>Admin?}
-    CheckAdminAction2 -->|Có| GoUC02[Chuyển UC02]
-    CheckAdminAction2 -->|Không| ErrorAdmin
-    
-    CheckDraft2 -->|Không| ErrorDraft2[Lỗi: Chỉ Activate Draft]
-    CheckDraft2 -->|Có| CheckAdminAction3{Là<br/>Admin?}
-    CheckAdminAction3 -->|Có| GoUC05[Chuyển UC05]
-    CheckAdminAction3 -->|Không| ErrorAdmin
-    
-    CheckAdminAction1 -->|Có| GoUC06[Chuyển UC06]
-    CheckAdminAction1 -->|Không| ErrorAdmin[Lỗi: Chỉ Admin]
-    
-    ErrorDraft1 --> Display
-    ErrorDraft2 --> Display
-    ErrorAdmin --> Display
-    
-    GoUC02 --> End2
-    GoUC05 --> End2
-    GoUC06 --> End2
-    BackList --> End2([Kết thúc])
+    ToUC02 --> End2([Kết thúc])
+    ToUC05 --> End2
+    ToUC06 --> End2
+    ToUC03 --> End2
     
     style Start fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style End1 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
@@ -462,9 +445,6 @@ flowchart TD
     style Display fill:#bbdefb,stroke:#1976d2,stroke-width:2px
     style ErrorNotFound fill:#ffcdd2,stroke:#c62828,stroke-width:2px
     style ErrorAccess fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style ErrorDraft1 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style ErrorDraft2 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style ErrorAdmin fill:#ffcdd2,stroke:#c62828,stroke-width:2px
 ```
 
 ### 3. Sequence Diagram - Xem chi tiết Bảng giá

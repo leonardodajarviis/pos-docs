@@ -1,9 +1,9 @@
-# Use Case UC-5: Kích hoạt Mã giá (Active)
+# Use Case UC-MAGIA-05: Kích hoạt Mã giá (Active)
 
 ---
 
-| **Use Case ID** | **UC-5** |
-|-----------------|----------|
+| **Use Case ID** | **UC-MAGIA-05** |
+|-----------------|-----------------||
 | **Use Case Name** | Kích hoạt Mã giá (Active) |
 | **Description** | Use Case "Kích hoạt Mã giá" cho phép Admin kích hoạt lại mã giá đã bị vô hiệu hóa (Inactive) để có thể sử dụng trong hệ thống. |
 | **Actor(s)** | Admin |
@@ -126,19 +126,19 @@ Use case kết thúc.
 
 ## Business Rules
 
-### BR-UC05-001: Chỉ Admin được kích hoạt
+### BR-MAGIA-027: Chỉ Admin được kích hoạt
 
 - Chỉ Admin mới có quyền kích hoạt mã giá
 - Nhân viên không có quyền này
 - Lý do: Tránh thay đổi không kiểm soát ảnh hưởng đến toàn hệ thống
 
-### BR-UC05-002: Chỉ kích hoạt mã giá Inactive
+### BR-MAGIA-028: Chỉ kích hoạt mã giá Inactive
 
 - Chỉ có thể kích hoạt mã giá đang ở trạng thái **Inactive**
 - Nếu mã giá đã Active → Từ chối thao tác
 - Mục đích: Tránh thao tác không cần thiết
 
-### BR-UC05-003: Kiểm tra mã giá gốc (Parent)
+### BR-MAGIA-029: Kiểm tra mã giá gốc (Parent)
 
 Đối với mã giá có kế thừa (có parentPriceCodeId):
 - **Mã giá gốc phải đang Active** mới được phép kích hoạt
@@ -154,7 +154,7 @@ PC-002 (kế thừa từ PC-001): Inactive
 → Phải Active PC-001 trước, sau đó mới Active PC-002
 ```
 
-### BR-UC05-004: Ràng buộc một mã giá Active mỗi nhóm hàng
+### BR-MAGIA-030: Ràng buộc một mã giá Active mỗi nhóm hàng
 
 - Mỗi nhóm hàng chỉ có thể có **duy nhất một mã giá Active** tại một thời điểm
 - Trước khi kích hoạt mã giá mới cho nhóm hàng → Phải kiểm tra nhóm hàng đó đã có mã giá Active chưa
@@ -171,7 +171,7 @@ Nhóm hàng: "Nhẫn vàng 24K"
 → Phải Deactive PC-100 trước, sau đó mới Active PC-200
 ```
 
-### BR-UC05-005: Ghi nhận audit log
+### BR-MAGIA-031: Ghi nhận audit log
 
 Mỗi lần kích hoạt mã giá, hệ thống ghi nhận đầy đủ:
 - Action: ACTIVATE
@@ -182,7 +182,7 @@ Mỗi lần kích hoạt mã giá, hệ thống ghi nhận đầy đủ:
 
 Mục đích: Theo dõi lịch sử thay đổi trạng thái
 
-### BR-UC05-006: Không ảnh hưởng bảng giá
+### BR-MAGIA-032: Không ảnh hưởng bảng giá
 
 Việc kích hoạt mã giá **không ảnh hưởng** đến các bảng giá đã tồn tại:
 - Các bảng giá đã tạo trước khi mã giá bị Deactive → Vẫn giữ nguyên
