@@ -1,14 +1,37 @@
 <!-- Custom head content -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true
+      }
+    });
+  });
+</script>
 <style>
   /* Better styling for Mermaid diagrams */
   .mermaid {
     text-align: center;
     margin: 2em 0;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
   }
   
   /* Responsive Mermaid */
   .mermaid svg {
     max-width: 100%;
     height: auto;
+  }
+  
+  /* Code blocks that will be converted to mermaid */
+  pre.mermaid, pre > code.language-mermaid {
+    background-color: white;
+    border: 1px solid #e1e4e8;
   }
 </style>
