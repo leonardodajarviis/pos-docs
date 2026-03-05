@@ -1,0 +1,38 @@
+# Jekyll Configuration for GitHub Pages
+title: Tài liệu Hệ thống POS
+description: Tài liệu chi tiết về hệ thống Point of Sale
+theme: jekyll-theme-cayman
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Enable relative links
+relative_links:
+  enabled: true
+  collections: true
+
+# Plugins
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-titles-from-headings
+
+# Optional front matter
+optional_front_matter:
+  remove_originals: true
+
+# Titles from headings
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: true
+
+# Include files
+include:
+  - README.md
+  - BANG-GIA
+  - CHINH-SACH-GIA-BAN
+  - CHINH-SACH-GIA-MUA
+  - MA-GIA
