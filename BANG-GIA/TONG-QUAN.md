@@ -101,7 +101,7 @@ stateDiagram-v2
 ### 3.1. Ma trận Phân quyền Actor
 
 | Use Case | Admin | Nhân viên | Ghi chú |
-|----------|:-----:|:---------:|---------||
+|----------|-----|---------|---------|
 | **UC-BANGGIA-01: Tạo bảng giá** | ✅ | ❌ | Chỉ Admin có quyền tạo bảng giá mới |
 | **UC-BANGGIA-02: Cập nhật bảng giá** | ✅ | ❌ | Chỉ Admin có quyền nhập/cập nhật giá |
 | **UC-BANGGIA-03: Xem danh sách bảng giá** | ✅ | ✅* | *Nhân viên chỉ xem được bảng giá Active |
