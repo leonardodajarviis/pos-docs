@@ -1,0 +1,30 @@
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+  // Cấu hình Mermaid
+  mermaid.initialize({ startOnLoad: false }); // Tắt tự động để ta tự điều khiển
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // 2. Tìm tất cả các khối code có đánh dấu là mermaid
+    // Tùy theo theme, class có thể là .language-mermaid hoặc .mermaid
+    const codeBlocks = document.querySelectorAll('pre > code.language-mermaid, pre.mermaid, code.mermaid');
+
+    codeBlocks.forEach((codeBlock, index) => {
+      const definition = codeBlock.textContent; // Lấy nội dung mã sơ đồ
+      const container = document.createElement('div');
+      container.className = 'mermaid';
+      container.innerHTML = definition;
+
+      // 3. Thay thế khối code cũ bằng div mới
+      const parent = codeBlock.parentElement;
+      if (parent.tagName === 'PRE') {
+          parent.replaceWith(container);
+      } else {
+          codeBlock.replaceWith(container);
+      }
+    });
+
+    // 4. Lệnh quan trọng: Bảo Mermaid quét và vẽ lại toàn bộ
+    mermaid.run();
+  });
+</script>
