@@ -51,7 +51,7 @@
 
 | Mã lỗi | Thông báo | Mô tả |
 |--------|-----------|-------|
-| `CATEGORY_NOT_LEAF` | "Chỉ được gắn mã giá cho nhóm hàng nhỏ nhất" | Nhóm hàng còn có nhóm con |
+| `CATEGORY_HAS_CHILDREN` | "Chỉ được gắn mã giá cho nhóm hàng nhỏ nhất" | Nhóm hàng còn có nhóm con |
 | `CATEGORY_HAS_PRICE_CODE` | "Nhóm hàng đã được gắn mã giá" | Nhóm hàng đã có mã giá khác |
 | `INACTIVE_PARENT` | "Mã giá gốc đã bị vô hiệu hóa" | Mã giá kế thừa không Active |
 | `CIRCULAR_REFERENCE` | "Phát hiện vòng lặp kế thừa" | Tạo vòng lặp trong chuỗi kế thừa |
@@ -61,7 +61,7 @@
 
 ## Pre-Condition(s)
 
-- Nhóm hàng leaf (không có nhóm con) đã tồn tại trong hệ thống
+- Nhóm hàng nhỏ nhất (không có nhóm con) đã tồn tại trong hệ thống
 - Nhóm hàng chưa có mã giá nào được gắn
 - (Nếu chọn kế thừa) Mã giá gốc phải có trạng thái Active
 - Admin đã đăng nhập và có quyền tạo mã giá
@@ -272,7 +272,7 @@ flowchart TD
     
     Input --> Validate{Kiểm tra<br/>tính hợp lệ}
     
-    Validate -->|Nhóm không phải leaf| Error1[Lỗi: Nhóm không phải leaf]
+    Validate -->|Nhóm có nhóm con| Error1[Lỗi: Nhóm có nhóm con]
     Validate -->|Nhóm đã có mã giá| Error2[Lỗi: Nhóm đã có mã giá]
     Validate -->|Vòng lặp kế thừa| Error3[Lỗi: Phát hiện vòng lặp]
     Validate -->|Mã gốc Inactive| Error4[Lỗi: Mã gốc bị vô hiệu hóa]
@@ -317,8 +317,8 @@ sequenceDiagram
         Service->>DB: 3. Kiểm tra nhóm hàng hợp lệ?
         DB-->>Service: Kết quả
         
-        alt Nhóm không phải leaf
-            Service-->>Controller: Lỗi: Nhóm không phải leaf
+        alt Nhóm có nhóm con
+            Service-->>Controller: Lỗi: Nhóm có nhóm con
             Controller-->>Admin: "Chỉ gắn cho nhóm nhỏ nhất"
         else Nhóm hợp lệ
             Service->>DB: 4. Kiểm tra nhóm đã có mã giá?
@@ -384,7 +384,7 @@ Diagram tập trung vào **business logic** và **luồng xử lý nghiệp vụ
 **Xử lý nghiệp vụ (Bước 1-4):**
 - Admin yêu cầu tạo mã giá mới và cung cấp thông tin
 - Hệ thống kiểm tra tuần tự các business rules:
-  1. **Nhóm hàng phải là leaf** (không có nhóm con)
+  1. **Nhóm hàng phải là nhóm nhỏ nhất** (không có nhóm con)
   2. **Nhóm hàng chưa có mã giá** nào khác
 
 **Nhánh xử lý:**
@@ -418,8 +418,8 @@ classDiagram
     class PriceCodeService {
         +createPriceCode() Mã giá mới
         +getActivePriceCodes() Danh sách
-        +getLeafCategories() Danh sách
-        +validateLeafCategory()
+        +getSmallestCategories() Danh sách
+        +validateSmallestCategory()
         +checkCircularReference()
     }
     
@@ -443,7 +443,7 @@ classDiagram
         +code: Mã nhóm
         +name: Tên nhóm
         +parentCategoryId: ID nhóm cha
-        +isLeafCategory() Là nhóm lá?
+        +isSmallestCategory() Là nhóm nhỏ nhất?
         +hasChildren() Có nhóm con?
         +getPriceCode() Mã giá
     }
@@ -462,6 +462,6 @@ classDiagram
     PriceCode "0..*" --> "0..1" PriceCode : kế thừa từ
     
     note for PriceCode "parentPriceCodeId = NULL: Mã giá độc lập\nparentPriceCodeId != NULL: Mã giá kế thừa"
-    note for Category "Chỉ nhóm lá (leaf) mới có PriceCode\nNếu đã có PriceCode, không được thêm con"
+    note for Category "Chỉ nhóm nhỏ nhất mới có PriceCode\nNếu đã có PriceCode, không được thêm con"
     note for PriceCodeService "Chứa business logic\nvà validation rules"
 ```
